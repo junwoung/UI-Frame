@@ -1,0 +1,41 @@
+dialog 组件注册引用后：
+
+HTML页面引用：
+<my-dialog ref="Layer"></my-dialog>
+
+js部分引用：
+let layer = this.$refs.Layer; 	//this 指向全局作用域
+
+1、confirm（确认）对话框 引用：
+	layer.confirm( 参数1，参数2，参数3 )	//参数1：确认文本信息； 参数2：点击确认按钮执行的回调函数； 参数3：点击取消按钮执行的回调函数；
+
+2、alert（警告）对话框 引用：
+	layer.alert(参数1，参数2)	//参数1：警告文本； 参数2：点击确认按钮执行的回调函数
+
+3、prompt（输入）对话框 引用
+	layer.prompt(参数1，参数2，参数3，参数4)		//参数1：文本信息；参数2：输入框值；参数3：点击确定按钮执行的回调函数；参数4：点击取消执行的回调函数
+
+4、msg（提示）对话框 引用
+	layer.tips(参数1，参数2)	//参数1：提示的文本信息；参数2：对话框停留时间（单位：秒，默认：3秒）
+
+5、loading（加载）对话框 引用
+	layer.loading(参数1)		//参数1：加载时显示的文本信息（默认为loading）
+
+6、以上5种弹框除了 prompt 均可用open方法打开
+	layer.open(对象)	//对象属性包括：
+			type,	//(弹框类型：对应上面除prompt外的四种选项)
+			msg,	//(文本信息，主要展示具体操作的信息)
+			title,	//(confirm、alert 对话框对应的标题信息)
+			yes(),	//(confirm对应的确定按钮回调函数)
+			no(),	//(confirm对应的取消按钮回调函数)
+			callback(),	//(alert对应的确定按钮回调函数)
+			timing,	//(msg对话框对应的存在时间，单位：秒)
+
+7、hide、hideAll（关闭对话框）引用
+	layer.hide(）、layer.hideAll()	//二者均可关闭对话框，当hide方法失效，可使用hideAll方法强制关闭所有对话框
+
+
+tips：以上5种对话框，除了msg对话框引用为 layer.tips	(msg为插件保留字段，对应对话框的文本信息)，其他文本框的引用均为  layer + 文本框类型名
+
+具体引用示例请查看src/business/dialog/dialog.vue
+	

@@ -1,0 +1,14 @@
+pagination组件注册引用后：
+
+HTML页面引用：
+<my-pagination  :page='page' v-on:turn_page='turn_page'></my-pagination>
+
+page	对象变量类型，包含四个属性
+	//total,总页数 （必填）
+	//current,当前页（非必填，默认为1）
+	//show_pages,中间展示分页数目（非必填，默认为5）
+	//size,分页每页展示条数（非必填，默认为20，默认分页选项为10、20、50、100，当传入数值不在数组内，则插入数组尾端）
+
+turn_page		点击分页触发的回调函数（选择分页size也会触发）
+
+tips：具体引用示例请查看src/business/page/page.vue

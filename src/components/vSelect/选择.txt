@@ -1,0 +1,21 @@
+select组件注册引入后：
+
+HTML页面部分调用：
+<my-select :select="selectObj" @callback="pick"></my-select>
+
+js部分引用：
+1、selectObj	对象变量，包含如下属性
+		1、type：选择类型（select：下拉列表；tab：块状选项卡；checkbox：复选框；radio：单选按钮；complete：自动补全；switch：开关按钮）	//必须	
+		2、data：选项列表（数组，为确保功能正常使用，确保数组每项都包含id和name属性，该项除了type类型为switch时为非必须，其他类型均是必须项）	//非必须
+		3、disable：是否禁用（默认false非禁用，当type不为checkbox时，disable值为true表示禁用；当type为checkbox时，disable值为all表示全部禁用，disable值为part表示部分禁用  ） //非必须
+		4、selected：已选参数（当type为select和radio传入一个数值，当type为tab和checkbox时传入一个数组，当type为switch时传入boolean值）	//非必须
+		5、query： 是否带查询功能（当type为select，query为true时，下拉列表附带查询功能，默认为false）	//非必须
+		6、multiple：是否复选（当type为tab，multiple为true时，表示复选，默认为false）	//非必须
+
+
+
+2、pick		操作返回函数
+		返回函数默认携带selected参数，可以输出查看已选参数，并自定义操作
+
+
+tips：具体引用示例请查看src/business/select/select.vue

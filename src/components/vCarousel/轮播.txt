@@ -1,0 +1,20 @@
+carousel组件注册引入后：
+
+HTML部分引用：
+<my-carousel :carouselObj="carouselObj" @callback="select"></my-carousel>
+
+
+js部分引用：
+1、carouselObj	对象变量，包含如下属性
+		1、data：轮播图片对象数组（为确保正常使用，每条记录必须包含src属性，可以包含id，name和url属性）	//必须
+		2、animate：指定轮播动画类型（默认为left，可选left、disappear、vertical）//非必须
+		3、click：轮播图片是否支持点击跳转（默认为true）//非必须
+		4、banner：是否显示banner（默认为true）//非必须
+		5、banner_click：banner圆点是否支持点击（默认为true）//非必须
+		6、arrow：是否显示左右切换箭头（默认为true）//非必须
+
+
+2、select		回调函数（一般轮播是不需要回调函数的，因此可以去掉引用部分@callback="select"；为满足特定需求，可以自定义回调函数）
+
+
+tips：具体引用示例请查看src/business/carousel/carousel.vue

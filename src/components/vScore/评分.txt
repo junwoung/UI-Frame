@@ -1,0 +1,16 @@
+score组件注册引用后：
+
+HTML页面部分引入：
+<my-score :scoreObj="scoreObj" @callback="getScore"></my-score>
+
+JavaScript部分引用：
+1、scoreObj	传入的对象参数（非必须），具体包含如下信息
+		1、score：	初始化评分（默认为0）  //非必须
+		2、disable：	评分是否可更改（默认为true）//非必须
+		3、zero：		评分是否可以为0（默认为true）//非必须
+
+2、getScore	选择评分后的回调函数（非必须），当需要用到的时候可以定义具体操作
+
+
+tips：处于规范考虑，暂不开放具体定义多少星数，及每颗星代表多少分数；目前评分包含总星数5颗，每颗代表2分；
+         具体引用示例参考src/business/score/score.vue
