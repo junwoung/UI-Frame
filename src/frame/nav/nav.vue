@@ -28,7 +28,8 @@
 							{name: '选择',url: 'select'},
 							{name: '分页',url: 'pagination'},
 							{name: '轮播',url: 'carousel'},
-							{name: '评分',url: 'score'}
+							{name: '评分',url: 'score'},
+							{name: '时间',url: 'time'}
 						]
 					},
 					{

@@ -19,6 +19,9 @@ import carousel from '../business/carousel/carousel.vue'
 import vScore from '../components//vScore/score.js'
 import score from '../business/score/score.vue'
 
+import vTime from '../components/vTime/time.js'
+import time from '../business/time/time.vue'
+
 import getParam from '../business/commonFunction/param.vue'
 import getDate from '../business/commonFunction/date.vue'
 
@@ -29,6 +32,7 @@ Vue.use(vDialog);
 Vue.use(vSelect);
 Vue.use(vCarousel);
 Vue.use(vScore);
+Vue.use(vTime);
 
 export default new Router({
   routes: [
@@ -60,6 +64,11 @@ export default new Router({
 	    	path: '/score',
 	    	name: 'score',
 	    	component: score
+	    },
+	    {
+	    	path: '/time',
+	    	name: 'time',
+	    	component: time
 	    },
 	    {
 	    	path: '/getUrlParam',
