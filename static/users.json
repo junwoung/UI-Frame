@@ -1,0 +1,14 @@
+[
+	{
+		"name": "wangjun",
+		"age": 22,
+		"gender": "male",
+		"free": false
+	},
+	{
+		"name": "zhengpeixin",
+		"age": 23,
+		"gender": "female",
+		"free": true
+	}
+]

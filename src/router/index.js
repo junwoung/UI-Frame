@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import axios from 'axios'
 
 import frame from '../frame/frame.vue'
 import commonjs from '../frame/common/common.js'
@@ -22,8 +23,12 @@ import score from '../business/score/score.vue'
 import vTime from '../components/vTime/time.js'
 import time from '../business/time/time.vue'
 
+import vUpload from '../components/vUpload/upload.js'
+import upload from '../business/upload/upload.vue'
+
 import getParam from '../business/commonFunction/param.vue'
 import getDate from '../business/commonFunction/date.vue'
+import useAxios from '../business/commonFunction/axios.vue'
 
 Vue.use(frame);
 Vue.use(Router);
@@ -33,6 +38,9 @@ Vue.use(vSelect);
 Vue.use(vCarousel);
 Vue.use(vScore);
 Vue.use(vTime);
+Vue.use(vUpload);
+
+Vue.prototype.$axios = axios;
 
 export default new Router({
   routes: [
@@ -71,14 +79,22 @@ export default new Router({
 	    	component: time
 	    },
 	    {
+	    	path: '/upload',
+	    	component: upload
+	    },
+	    {
 	    	path: '/getUrlParam',
 	    	name: 'param',
 	    	component: getParam
 	    },
 	    {
-	    	path: 'getFormatDate',
+	    	path: '/getFormatDate',
 	    	name: 'date',
 	    	component: getDate
+	    },
+	    {
+	    	path: '/axios',
+	    	component: useAxios
 	    },
 	    {
 	    	path: '*',

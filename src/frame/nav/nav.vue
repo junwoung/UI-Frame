@@ -29,7 +29,8 @@
 							{name: '分页',url: 'pagination'},
 							{name: '轮播',url: 'carousel'},
 							{name: '评分',url: 'score'},
-							{name: '时间',url: 'time'}
+							{name: '时间',url: 'time'},
+							{name: '文件上传',url: 'upload'}
 						]
 					},
 					{
@@ -40,7 +41,8 @@
 						name: '方法',
 						sons: [
 							{name: '获取url参数',url: 'getUrlParam'},
-							{name: '获取格式化时间',url: 'getFormatDate'}
+							{name: '获取格式化时间',url: 'getFormatDate'},
+							{name: 'axios',url: 'axios'}
 						]
 					},
 					{
@@ -81,7 +83,7 @@
 </script>
 
 <style scope>
-	.frame_nav{width:220px;background-color:#222D43;font-size:14px;font-family:'微软雅黑';float:left;position:relative;z-index:200;overflow:hidden;height:auto;}
+	.frame_nav{width:220px;background-color:#222D43;font-size:14px;font-family:'微软雅黑';float:left;position:relative;z-index:200;overflow:hidden;height:auto;position:absolute;bottom:0;top:0;}
 	.frame_nav .ul_nav{padding:0;margin:40px 0px 0 0px;}
 	.frame_nav .ul_nav li{list-style:none;float:left;}
 	.frame_nav .li_first{width:100%;min-height:40px;color:rgba(108,125,163,0.8);position:relative;cursor:pointer;line-height:40px;border-left:4px solid #222D43;}

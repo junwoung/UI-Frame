@@ -116,11 +116,11 @@
 			}
 		},
 		methods: {
-			get_focus: function(){
+			get_focus: function(event){
 				/**	让select第一个文本框获取焦点 */
 				event.target.parentNode.firstChild.focus();
 			},
-			get_focus2: function(){
+			get_focus2: function(event){
 				/**	让select query文本框获取焦点 */
 				event.target.parentNode.parentNode.firstChild.focus();
 			},
@@ -131,33 +131,34 @@
 				this.txt = obj.name;
 				this.$emit('callback',this.selected);
 			},
-			show_options: function(){
+			show_options: function(event){
 				/**	当select第一个文本框获取焦点时展示下拉列表选项 */
 				 event.target.parentNode.lastChild.setAttribute('class','j_ul_options');
 			},
-			show_options2: function(){
+			show_options2: function(event){
 				/**	当select  query文本框获取焦点时展示下拉列表选项 */
 				let e = event;
 				setTimeout(function(){
 					e.target.parentNode.parentNode.lastChild.setAttribute('class','j_ul_options');
 				},150);
 			},
-			hide_options: function(){
+			hide_options: function(event){
 				/* 当select第一个文本框失去焦点时隐藏下拉列表选项 */
 				let e = event;
 				setTimeout(function(){
 					e.target.parentNode.lastChild.setAttribute('class','j_ul_options hide');
 				},150);
 			},
-			hide_options2: function(){
+			hide_options2: function(event){
 				/* 当select query文本框失去焦点时隐藏下拉列表选项 */
 				let e = event;
 				setTimeout(function(){
 					e.target.parentNode.parentNode.lastChild.setAttribute('class','j_ul_options hide');
 				},150);
 			},
-			select_query: function(){
+			select_query: function(event){
 				/* select下拉列表选项根据query文本框输入的值变化 */
+				// let event = window.event || arguments.callee.caller.arguments[0];
 				let str = event.target.value;
 				this.data_select = [];
 				for(let i = 0; i < this.data.length; i++){
@@ -265,7 +266,7 @@
 					t.focus = false;
 				},150);
 			},
-			get_focus_comp: function(){
+			get_focus_comp: function(event){
 				/* complete 文本框获得焦点 */
 				if(this.disable)return;
 				let e = event;
@@ -276,7 +277,7 @@
 				this.i = 0;
 				
 			},
-			listen_comp: function(){ 
+			listen_comp: function(event){ 
 				/* complete js监听键盘事件，模拟上下键 */
 				if(this.disable)return;
 				let code = event.keyCode;
@@ -340,7 +341,7 @@
 					return;
 				}
 			},
-			clear_style: function(){
+			clear_style: function(event){
 				/* complete 清除选项hover样式 */
 				this.i = 0;
 				let nodes = event.target.parentNode.childNodes;
