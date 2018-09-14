@@ -4,8 +4,8 @@
 			<my-select :select="compObj" @callback="pick10"></my-select>
 		</div>
 		<div style="margin-top:20px;float:left;width:100%;" class="clearfix">
-			<my-select :select="selectObj" @callback="pick"></my-select>
-			<my-select :select="selectObj2" @callback="pick2"></my-select>
+			<my-select style= "width:200px;" :select="selectObj" @callback="pick"></my-select>
+			<my-select style= "width:200px;" :select="selectObj2" @callback="pick2"></my-select>
 		</div>
 		<div style="margin-top:20px;float:left;width:100%;" class="clerafix">
 			<my-select :select="selectObj2" @callback="pick2"></my-select>
@@ -48,19 +48,41 @@
 				selectObj:{
 					type: 'select',
 					query: false,
+					config:{
+						id: 'index',
+						name: 'value'
+					},
+					// data: [
+					// 	{id:1,name:'zdj'},
+					// 	{id:2,name:'wj'},
+					// 	{id:3,name:'zyh'},
+					// 	{id:4,name:'yjy'},
+					// 	{id:5,name:'ypc'}
+					// ],
 					data: [
-						{id:1,name:'zdj'},
-						{id:2,name:'wj'},
-						{id:3,name:'zyh'},
-						{id:4,name:'yjy'},
-						{id:5,name:'ypc'}
+						{index:1,value:'zdj'},
+						{index:2,value:'wj'},
+						{index:3,value:'zyh'},
+						{index:4,value:'yjy'},
+						{index:5,value:'ypc'}
 					],
-					selected: 5
+					placeholder: '请选择用户'
 				},
 				selectObj2:{
 					type: 'select',
 					disable: false,
 					query: true,
+					config:{
+						id: 'index',
+						name: 'value'
+					},
+					// data: [
+					// 	{index:1,value:'zdj'},
+					// 	{index:2,value:'wj'},
+					// 	{index:3,value:'zyh'},
+					// 	{index:4,value:'yjy'},
+					// 	{index:5,value:'ypc'}
+					// ],
 					data: [
 						{id:1,name:'zdj'},
 						{id:2,name:'wj'},
@@ -77,6 +99,17 @@
 				selectTab1:{
 					type: 'tab',
 					multiple: true,
+					config:{
+						id: 'index',
+						name: 'value'
+					},
+					// data: [
+					// 	{index:1,value:'zdj'},
+					// 	{index:2,value:'wj'},
+					// 	{index:3,value:'zyh'},
+					// 	{index:4,value:'yjy'},
+					// 	{index:5,value:'ypc'}
+					// ],
 					data: [
 						{id:1,name:'zdj'},
 						{id:2,name:'wj'},
@@ -108,6 +141,17 @@
 				},
 				selectCk:{
 					type: 'checkbox',
+					config:{
+						id: 'index',
+						name: 'value'
+					},
+					// data: [
+					// 	{index:1,value:'zdj'},
+					// 	{index:2,value:'wj'},
+					// 	{index:3,value:'zyh'},
+					// 	{index:4,value:'yjy'},
+					// 	{index:5,value:'ypc'}
+					// ],
 					data: [
 						{id:1,name:'zdj'},
 						{id:2,name:'wj'},
@@ -155,17 +199,28 @@
 				},
 				selectRd:{
 					type: 'radio',
+					config:{
+						id: 'index',
+						name: 'value'
+					},
 					data: [
-						{id:1,name:'zdj'},
-						{id:2,name:'wj'},
-						{id:3,name:'zyh'},
-						{id:4,name:'yjy'},
-						{id:6,name:'zdj2'},
-						{id:7,name:'wj2'},
-						{id:8,name:'zyh2'},
-						{id:9,name:'yjy2'},
-						{id:5,name:'ypc'}
+						{index:1,value:'zdj'},
+						{index:2,value:'wj'},
+						{index:3,value:'zyh'},
+						{index:4,value:'yjy'},
+						{index:5,value:'ypc'}
 					],
+					// data: [
+					// 	{id:1,name:'zdj'},
+					// 	{id:2,name:'wj'},
+					// 	{id:3,name:'zyh'},
+					// 	{id:4,name:'yjy'},
+					// 	{id:6,name:'zdj2'},
+					// 	{id:7,name:'wj2'},
+					// 	{id:8,name:'zyh2'},
+					// 	{id:9,name:'yjy2'},
+					// 	{id:5,name:'ypc'}
+					// ],
 					selected: 4
 				},
 				selectRd2:{
@@ -187,6 +242,17 @@
 				compObj:{
 					type: 'complete',
 					disable: false,
+					config:{
+						id: 'index',
+						name: 'value'
+					},
+					// data: [
+					// 	{index:1,value:'zdj'},
+					// 	{index:2,value:'wj'},
+					// 	{index:3,value:'zyh'},
+					// 	{index:4,value:'yjy'},
+					// 	{index:5,value:'ypc'}
+					// ],
 					data: [
 						{id:1,name:'zdj'},
 						{id:2,name:'wj'},

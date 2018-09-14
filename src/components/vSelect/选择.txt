@@ -11,6 +11,12 @@ js部分引用：
 		4、selected：已选参数（当type为select和radio传入一个数值，当type为tab和checkbox时传入一个数组，当type为switch时传入boolean值）	//非必须
 		5、query： 是否带查询功能（当type为select，query为true时，下拉列表附带查询功能，默认为false）	//非必须
 		6、multiple：是否复选（当type为tab，multiple为true时，表示复选，默认为false）	//非必须
+		7、placeholder：文本框提示信息（当type为select时生效。）//非必须
+		8、config：配置字段对应关系（当传入的选项数据没能符合规定数据，可通过配置config值来指定相关字段与id、name的对应关系）	//非必须
+		例：config: {
+		  	id: "index",	//指定index与id对应
+			name: "value"	//指定value与name对应
+		       }
 
 
 

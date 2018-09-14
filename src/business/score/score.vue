@@ -34,7 +34,7 @@
 		},
 		methods: {
 			getScore: function(s){
-				Vue.prototype.Layer.tips('评分是： '+s,2);
+				this.Layer.tips('评分是： '+s,2);
 			}
 		},
 		beforeCreate(){

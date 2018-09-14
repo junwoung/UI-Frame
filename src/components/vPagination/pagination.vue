@@ -8,7 +8,7 @@
 			<li @click="toPage(total_page)" :class="{disabled:current >= total_page}">尾页</li>
 		</ul>
 		<div class="j_select_div">
-			<input type="text" style="width: 0;height: 0;border: none;" v-on:focus="show" v-on:blur="hide">
+			<input type="text" style="width: 0;height: 0;border: none;opacity: 0;" v-on:focus="show" v-on:blur="hide">
 			<span class="j_selected_span" @click="showList($event)">{{selected_num}}条</span>
 			<div class="j_pagenum_list" :class="{hide:!onSelect}">
 				<span :class="{selected:pagenum == selected_num}" v-for="pagenum in j_pagenum_list" @click="selectNum(pagenum)">{{pagenum}}条</span>
