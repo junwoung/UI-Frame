@@ -10,7 +10,7 @@
 				</span>
 				<ul class="j_ul_options hide">
 					<input v-if='query' placeholder="请输入过滤条件" type="text" class="j_ip_query" @focus='show_options2' @blur='hide_options2' @keyup="select_query">
-					<li v-for="(option,key) in data_select" :class="{'j_li_selected': selected && selected === (option.id || option[config.id])}" :title="option.name || option[config.name]" @click="select_option(option)"><span class="j_sp_option">{{option.name || option[config.name]}}</span></li>
+					<li v-for="(option,key) in data_select" :class="{'j_li_selected': selected !== null && selected == (option.id !== undefined ? option.id : option[config.id])}" :title="option.name || option[config.name]" @click="select_option(option)"><span class="j_sp_option">{{option.name || option[config.name]}}</span></li>
 				</ul>
 			</div>
 		</div>
@@ -60,9 +60,9 @@
 
 		<!-- 单选按钮 -->
 		<div v-if="type == 'radio'" class="j_div_radio">
-			<label v-for="option in data" class="j_lb_rd" @mouseover="hover_idx = (option.id || option[config.id])" @mouseout="hover_idx = null" @click="select_rd(option)">
-				<i class="j_i_rd j_rd_uncheck" :class="{'j_rd_checked_dis':disable && selected == (option.id || option[config.id]),'j_rd_uncheck_dis':disable,'j_rd_checked':selected == (option.id || option[config.id]),'j_rd_hover':hover_idx == (option.id || option[config.id])}"></i>
-				<span :class="{'j_sp_rd_dis':disable,'j_sp_rd':selected == (option.id || option[config.id]) || hover_idx == (option.id || option[config.id])}">{{option.name || option[config.name]}}</span>
+			<label v-for="option in data" class="j_lb_rd" @mouseover="hover_idx = (option.id !== undefined ? option.id : option[config.id])" @mouseout="hover_idx = null" @click="select_rd(option)">
+				<i class="j_i_rd j_rd_uncheck" :class="{'j_rd_checked_dis':disable && selected == (option.id !== undefined ? option.id : option[config.id]),'j_rd_uncheck_dis':disable,'j_rd_checked':selected == (option.id !== undefined ? option.id : option[config.id]),'j_rd_hover':hover_idx == (option.id !== undefined ? option.id : option[config.id])}"></i>
+				<span :class="{'j_sp_rd_dis':disable,'j_sp_rd':selected == (option.id !== undefined ? option.id : option[config.id]) || hover_idx == (option.id !== undefined ? option.id : option[config.id])}">{{option.name || option[config.name]}}</span>
 			</label>
 		</div>
 
@@ -116,13 +116,18 @@
 				focus: false,//complete 用于存放文本框状态
 				i: null,//complete 用于模拟hover事件
 
-				config: null//配置字段对应
+				config: {id: 'id',name: 'name'}//配置字段对应
 			}
 		},
 		props:{
 			select: {
 				type: Object,
 				default: null
+			}
+		},
+		computed:{
+			returnResult: function(option){
+				console.log(option);
 			}
 		},
 		methods: {
@@ -243,17 +248,17 @@
 			},
 			select_ck: function(obj){
 				/* checkbox 点击选择某个选项 */
-				if(this.disable == 'part' && this.data_select.indexOf(obj.id || obj[this.config.id]) !== -1){
+				if(this.disable == 'part' && this.data_select.indexOf(obj.id !== undefined ? obj.id : obj[this.config.id]) !== -1){
 					return;
 				}
 				if(this.disable == 'all'){
 					return;
 				}
-				if(this.selected.indexOf(obj.id || obj[this.config.id]) !== -1){
-					this.selected.splice(this.selected.indexOf(obj.id || obj[this.config.id]),1);
+				if(this.selected.indexOf(obj.id !== undefined ? obj.id : obj[this.config.id]) !== -1){
+					this.selected.splice(this.selected.indexOf(obj.id !== undefined ? obj.id : obj[this.config.id]),1);
 				}
 				else{
-					this.selected.push(obj.id || obj[this.config.id]);
+					this.selected.push(obj.id !== undefined ? obj.id : obj[this.config.id]);
 				}
 				let selected = this.dealSelected();
 				this.$emit('callback',selected);
@@ -261,7 +266,7 @@
 			select_rd: function(obj){
 				/* radio 点击选择某个选项 */
 				if(this.disable)return;
-				this.selected = obj.id || obj[this.config.id];
+				this.selected = obj.id !== undefined ? obj.id : obj[this.config.id];
 				let selected = this.dealSelected();
 				this.$emit('callback',selected);
 			},
@@ -389,7 +394,7 @@
 				let data = null;
 				if( type == 'number' ){
 					for(let i = 0; i < len; i++){
-						if((this.data[i].id || this.data[i][this.config.id]) == this.selected){
+						if((this.data[i].id !== undefined ? this.data[i].id : this.data[i][this.config.id]) == this.selected){
 							data = this.data[i];
 							break;
 						}
@@ -433,7 +438,7 @@
 			if(this.selected !== null){
 				/* 初始化select选中的文本 */
 				for(let i = 0; i < this.data.length; i++){
-					if(this.selected == (this.data[i].id || this.data[i][this.config.id])){
+					if(this.selected == (this.data[i].id !== undefined ? this.data[i].id : this.data[i][this.config.id])){
 						this.txt = this.data[i].name || this.data[i][this.config.name];
 						break;
 					}
@@ -443,6 +448,11 @@
 				for(let key in this.select){
 					this.$data[key] = this.select[key];
 				}
+			}
+		},
+		watch:{
+			'selected': function(val){
+				this.select.selected = val;
 			}
 		}
 	}
@@ -464,7 +474,7 @@
 	.j_div_select .j_lb_selected{display:inline-block;max-width:75%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 	.j_div_select .j_ip_query{width:91%;padding-left:4%;border:1px solid #3896fe;margin:2px;outline:none;height:25px;color:#999;font-size:12px;}
 
-	.j_div_tab{color:#666;background-color:#f5f5f5;color:#333;float:left;max-width:900px;position:relative;}
+	.j_div_tab{color:#666;background-color:#f5f5f5;color:#333;float:left;max-width:900px;position:relative;padding-right:30px;}
 	.j_div_tab .j_ul_tab{padding:10px 20px;width:80%;float:left;overflow:hidden;max-width:800px;min-width:400px;}
 	.j_div_tab .j_ul_show_little{height:32px;}
 	.j_div_tab .j_ul_tab li{list-style:none;float:left;padding:6px 15px;border:1px solid #bbbbbb;margin-left:20px;border-radius:3px;cursor:pointer;position:relative;margin-bottom:10px;}

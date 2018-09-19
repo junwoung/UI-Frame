@@ -141,7 +141,7 @@
 			},
 			ensure: function(){
 				/* confirm 确定按钮 */
-				this.yes && this.yes();
+				this.yes && this.yes(this.prompt_value);
 				this.hide();
 			},
 			cancel: function(){
@@ -293,7 +293,7 @@
 	.j_btn-cancel:hover{background-color:#bbbbbb;border:1px solid #bbbbbb;}
 
 	.j_msg_body_init{width:0;height:0;opacity:0;top:50%;left:50%;over-flow:hidden; transition: width 1s;position:fixed;}
-	.j_msg_body{padding:15px 40px;background-color:#000;color:#fff;opacity:0.6;border-radius:5px;cursor:pointer;max-width:300px;position:fixed;z-index: 110000;text-align:center;}
+	.j_msg_body{padding:15px 40px;background-color:#000;color:#fff;opacity:0.5;border-radius:5px;cursor:pointer;max-width:300px;position:fixed;z-index: 110000;text-align:center;}
 
 	.j_alert_img_div{width:60px;float:left;height:100%;}
 	.j_alert_img{content:'!';position:relative;width:32px;height:32px;background-color:#D80000;display:inline-block;z-index:120000;color:white;line-height:32px;font-size:20px;font-weight:600;border-radius:50%;text-align:center;margin-top:10px;}

@@ -36,6 +36,7 @@ let layer = this.$refs.Layer; 	//this 指向全局作用域
 
 
 tips：以上5种对话框，除了msg对话框引用为 layer.tips	(msg为插件保留字段，对应对话框的文本信息)，其他文本框的引用均为  layer + 文本框类型名
+         prompt对话框的第三个参数（也就是确认回调函数），可以传一个参数val，用于获取文本框内的值
 
-具体引用示例请查看src/business/dialog/dialog.vue
+        具体引用示例请查看src/business/dialog/dialog.vue
 	

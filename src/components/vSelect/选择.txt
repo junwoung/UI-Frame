@@ -24,4 +24,5 @@ js部分引用：
 		返回函数默认携带selected参数，可以输出查看已选参数，并自定义操作
 
 
-tips：具体引用示例请查看src/business/select/select.vue
+tips：具体引用示例请查看src/business/select/select.vue；
+         回调函数可选，当你需要获取较为复杂的参数时，建议定义回调函数。否则可直接通过 selectObj.selected 获取相应的已选择的索引id。
