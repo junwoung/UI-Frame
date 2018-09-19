@@ -21,7 +21,7 @@
 					<span v-for='n in nav'>{{n}}</span>
 				</div>
 				<div class="j_div_time_date">
-					<span @click='select_date(d)'  :class="{'span_today':d.timestamp == today,'span_disable': (min ? (d.timestamp < min):false) || (max ? (d.timestamp > max):false) || disable,'span_selected':d.timestamp == select_day,'span_current_month':d.current}" v-for='d in date'>{{d.date}}</span>
+					<span @click='select_date(d,$event)'  :class="{'span_today':d.timestamp == today,'span_disable': (min ? (d.timestamp < min):false) || (max ? (d.timestamp > max):false) || disable,'span_selected':d.timestamp == select_day,'span_current_month':d.current}" v-for='d in date'>{{d.date}}</span>
 				</div>
 			</div>
 			<div class="j_div_time_body_month" v-if='onSelectType == "month"'>
@@ -54,7 +54,7 @@
 			</div>
 			<div class="j_div_time_footer">
 				<span class="sp_sure" @click="ensure">确定</span>
-				<span class="sp_now" :class="{'sp_disable':disable}" @click="now_date">现在</span>
+				<span class="sp_now" :class="{'sp_disable':disable}" @click="now_date()">现在</span>
 				<span class="sp_clear" :class="{'sp_disable':disable}" @click="clear_date">清空</span>
 				<span @click="select_detail" class="sp_detail" :class="{'sp_disable':disable || (formate != 'hour' && formate != 'minute' && formate != 'second')}">
 					<label v-if='onSelectType !== "time"' style="cursor:inherit;">选择时分秒</label>
@@ -123,7 +123,30 @@ export default{
 			let today_str = date.getFullYear()+ '-' +(date.getMonth() > 8 ?(date.getMonth()+1):('0'+(date.getMonth()+1)))+ '-' +(date.getDate() > 9 ?date.getDate():('0'+date.getDate()));
 			this.today = (new Date(today_str)).valueOf();
 			if(this.selected){
-				date = new Date(this.selected);
+				switch (this.selected){
+					case 'today': this.now_date();break;
+					case 'yesterday': 
+						let yesterday = (new Date()).valueOf() - 1000*24*3600;
+						this.now_date(yesterday);
+						break;
+					case 'tomorrow': 
+						let tomorrow = (new Date()).valueOf() + 1000*24*3600;
+						this.now_date(tomorrow);
+						break;
+					default:
+						date = new Date(this.selected);
+				}
+				// if(this.selected == 'today'){
+				// 	this.now_date();
+				// }
+				// else{
+				// 	date = new Date(this.selected);
+				// }
+				
+			}
+			if(this.selected === undefined){
+				console.log(1111);
+				date = new Date();
 			}
 			let year = date.getFullYear();
 			let month = date.getMonth()+1;
@@ -220,11 +243,17 @@ export default{
 			//隐藏控件
 			this.onSelect = false;
 		},
-		select_date: function(d){
+		select_date: function(d,event){
 			//点击日期触发
 			if(this.disable)return;
 			if(this.min && this.min > d.timestamp || this.max && this.max < d.timestamp)return;
 			this.switch_date(d);
+			if(this.formate != 'hour' && this.formate != 'minute' && this.formate != 'second' ){
+				let className = event.target.getAttribute('class');
+				if(className){
+					this.ensure();
+				}
+			}
 		},
 		switch_date: function(d){
 			//切换日期
@@ -312,19 +341,22 @@ export default{
 		ensure: function(){
 			//确定按钮触发
 			if(this.disable){this.onSelect = false;return;}
-			this.out_put();
+			let flag = this.check_available();
+			if(typeof flag != 'boolean'){
+				this.selected = flag;
+			}	
 		},
-		now_date: function(){
+		now_date: function(arg){
 			//点击现在按钮触发
 			if(this.disable)return;
-			let date = new Date();
+			let date = arg ? new Date(arg) : new Date();
 			let year = date.getFullYear();
 			let month = date.getMonth()+1;
 			month = month > 9 ? month : ('0'+month);
 			let day = date.getDate();
 			day = day > 9 ? day : ('0'+day);
 			let date_str = year + '-' + month + '-' + day;
-			if(this.min && (new Date(date_str)).valueOf() < this.min || this.max && (new Date(date_str)).valueOf() > this.max)return;
+			// if(this.min && (new Date(date_str)).valueOf() < this.min || this.max && (new Date(date_str)).valueOf() > this.max)return;
 			this.s_year = year;
 			this.s_month = month;
 			this.s_day = day;
@@ -339,31 +371,31 @@ export default{
 			this.s_second = second;
 
 			this.select_day = (new Date(date_str)).valueOf();
-			this.out_put();
+			this.selected = this.out_put();
 		},
 		out_put: function(){
 			//输出日期，触发回调函数
+			let date = null;
 			if(this.formate == 'second'){
-				this.selected = this.s_year + '-' + this.s_month + '-' + this.s_day + ' ' + this.s_hour + ':' + this.s_minute + ':' + this.s_second;
+				date = this.s_year + '-' + this.s_month + '-' + this.s_day + ' ' + this.s_hour + ':' + this.s_minute + ':' + this.s_second;
 			}
 			else if(this.formate == 'minute'){
-				this.selected = this.s_year + '-' + this.s_month + '-' + this.s_day + ' ' + this.s_hour + ':' + this.s_minute;
+				date = this.s_year + '-' + this.s_month + '-' + this.s_day + ' ' + this.s_hour + ':' + this.s_minute;
 			}
 			else if(this.formate == 'hour'){
-				this.selected = this.s_year + '-' + this.s_month + '-' + this.s_day + ' ' + this.s_hour;
+				date = this.s_year + '-' + this.s_month + '-' + this.s_day + ' ' + this.s_hour;
 			}
 			else{
-				this.selected = this.s_year + '-' + this.s_month + '-' + this.s_day;
+				date = this.s_year + '-' + this.s_month + '-' + this.s_day;
 			}
-			this.$emit('callback',this.selected);
 			this.onSelect = false;
+			return date;
 		},
 		clear_date: function(){
 			//清空日期
 			if(this.disable)return;
 			this.selected = null;
 			this.onSelect = false;
-			this.$emit('callback',this.selected);
 		},
 		set_position: function(){
 			//设置控件出现的位置，当控件位于浏览器底端时，控件将出现在文本框上方位置
@@ -371,6 +403,22 @@ export default{
 			let domB = this.$el.getBoundingClientRect().bottom;
 			let offset = clientH - domB;
 			if (offset < 320) {this.position_top = true;}
+		},
+		check_available: function(){
+			/**
+			 *点击确定按钮 检查有效性
+			 **/
+			 let date = this.out_put(),flag = null,flag1 = null;
+			 let short_date = date.split(' ')[0];
+			 if( (this.max && (new Date(date)).valueOf() > (new Date(this.max)).valueOf()) || (this.min && (new Date(date)).valueOf() < (new Date(this.min)).valueOf()) ){
+			 	flag = false;
+			 }
+			 else
+			 	flag = date;
+			 if(this.max && (new Date(short_date)).valueOf() == this.max){
+			 	flag = short_date + (date.split(' ')[1]?(' '+date.split(' ')[1]):'');
+			 }
+			 return flag;
 		}
 	},
 	mounted(){
@@ -385,6 +433,9 @@ export default{
 		},
 		'timeObj.min': function(){
 			this.init();
+		},
+		'selected': function(val){
+			this.timeObj.selected = val;
 		}
 	}
 }
