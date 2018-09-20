@@ -3,7 +3,7 @@
 		<div v-if="type">
 			<div class="j_d_modal" :class="{'j_d_modal_white': type == 'loading'}" v-if='type != "msg"' @click="hide"></div>
 			<!-- 确认对话框 -->
-			<div class="j_diy_dialog_window clearfix" ref="MyWindow" id="j_diy_dialog_window" style="opacity:0" v-if='type == "confirm"'>
+			<div class="j_diy_dialog_window clearfix" id="j_diy_dialog_window" style="opacity:0" v-if='type == "confirm"'>
 				<div class="j_head_div clearfix">
 					<span class="j_sp_title">{{title}}</span>
 					<span class="j_sp_close" @click="hide">X</span>
@@ -17,11 +17,11 @@
 				</div>
 			</div>
 			<!-- 提示信息对话框 -->
-			<div class="j_msg_body_init clearfix" ref="MyWindow" id="j_diy_dialog_window" v-if='type == "msg"' @click="hide">
+			<div class="j_msg_body_init clearfix" id="j_diy_dialog_window" v-if='type == "msg"' @click="hide">
 				<span>{{msg}}</span>
 			</div>
 			<!-- 警告对话框 -->
-			<div class="j_diy_dialog_window clearfix" ref="MyWindow" id="j_diy_dialog_window" style="opacity:0" v-if='type == "alert"'>
+			<div class="j_diy_dialog_window clearfix" id="j_diy_dialog_window" style="opacity:0" v-if='type == "alert"'>
 				<div class="j_head_div clearfix">
 					<span class="j_sp_title">{{title}}</span>
 					<span class="j_sp_close" @click="hide">X</span>
@@ -37,12 +37,12 @@
 				</div>
 			</div>
 			<!-- 加载对话框 -->
-			<div class="j_loading_body clearfix" ref="MyWindow" id="j_diy_dialog_window" style="opacity:0" v-if='type == "loading"'>
+			<div class="j_loading_body clearfix" id="j_diy_dialog_window" style="opacity:0" v-if='type == "loading"'>
 				<div class="loading"></div>
 				<span class="j_loading_msg">{{msg}}</span>
 			</div>
 			<!-- prompt对话框 -->
-			<div class="j_diy_dialog_window clearfix" ref="MyWindow" id="j_diy_dialog_window" style="opacity:0" v-if='type == "prompt"'>
+			<div class="j_diy_dialog_window clearfix" id="j_diy_dialog_window" style="opacity:0" v-if='type == "prompt"'>
 				<div class="j_head_div clearfix">
 					<span class="j_sp_title">{{msg}}</span>
 					<span class="j_sp_close" @click="hide">X</span>
@@ -119,6 +119,19 @@
 				if(this.type == 'loading'){
 					return;
 				}
+				if(this.type == 'msg'){
+					let that = this;
+					let timeout = setTimeout(function(){
+						that.type = false;
+					},300);
+					let msgbox = document.querySelector('.j_msg_body');
+					let top = msgbox.style.top;
+					msgbox.style.top = (parseFloat(top)-40) + 'px';
+					msgbox.style.opacity = 0;
+					msgbox.style.transition = "top 0.3s,opacity 0.2s";
+					clearTimeout(this.time_out);
+					return;
+				}
 				this.type = false;
 				clearTimeout(this.time_out);
 			},
@@ -158,119 +171,114 @@
 				if(this.type) this.hideAll();
 				let t = this;
 				/* msg 纯提示对话框 */
+				t.type = 'msg';
+				t.msg = str || '请输入提示信息';
+				t.timing = timing || 3;
 				setTimeout(function(){
-					t.type = 'msg';
-					t.msg = str || '请输入提示信息';
-					t.timing = timing || 3;
+					let win = document.getElementById('j_diy_dialog_window');
 					setTimeout(function(){
-						let win = document.getElementById('j_diy_dialog_window');
-						setTimeout(function(){
-							win.setAttribute('class','j_msg_body clearfix');
-							t.setPosition();
-							t.time_out = setTimeout(function(){
-								t.hide();
-							},t.timing*1000);
-						},10);	
-					},100);
-				},10);
-				
+						win.setAttribute('class','j_msg_body clearfix');
+						t.setPosition();
+						t.time_out = setTimeout(function(){
+							t.hide();
+						},t.timing*1000);
+					},10);	
+				},100);				
 			},
 			confirm: function(){
 				/* confirm 确认对话框 */
 				if(this.type) this.hideAll();
 				let t = this;
 				let args = arguments;
+				t.type = 'confirm';
+				if(args[0]){
+					t.msg = args[0];
+				}
+				else{
+					t.msg = '确认要干什么？';
+				}
+				if(args[1]){
+					t.yes = args[1];
+				}
+				if(args[2]){
+					t.no = args[2];
+				}
 				setTimeout(function(){
-					t.type = 'confirm';
-					if(args[0]){
-						t.msg = args[0];
-					}
-					else{
-						t.msg = '确认要干什么？';
-					}
-					if(args[1]){
-						t.yes = args[1];
-					}
-					if(args[2]){
-						t.no = args[2];
-					}
-					setTimeout(function(){
-						t.setPosition();
-					},10);
-				},10);
-				
+					t.setPosition();
+				},10);				
 			},
 			alert: function(){
 				/* alert 警告对话框 */
 				if(this.type) this.hideAll();
 				let t = this;
 				let args = arguments;
+				t.type = 'alert';
+				if(args[0]){
+					t.msg = args[0];
+				}
+				else{
+					t.msg = '请确认什么？';
+				}
+				if(args[1]){
+					t.callback = args[1];
+				}			
 				setTimeout(function(){
-					t.type = 'alert';
-					if(args[0]){
-						t.msg = args[0];
-					}
-					else{
-						t.msg = '请确认什么？';
-					}
-					if(args[1]){
-						t.callback = args[1];
-					}			
-					setTimeout(function(){
-						t.setPosition();
-					},10);
-				},10);
-				
+					t.adjustModal();
+					t.setPosition();
+				},10);				
 			},
 			loading: function(str){
 				/* loading 加载对话框 */
 				if(this.type) this.hideAll();
 				let t = this;
+				t.type = 'loading';
+				t.msg = str || 'loading';
 				setTimeout(function(){
-					t.type = 'loading';
-					t.msg = str || 'loading';
-					setTimeout(function(){
-						t.setPosition();
-					},10);
-				},10);
-				
+					t.adjustModal();
+					t.setPosition();
+				},10);			
 			},
 			prompt: function(){
 				/* prompt 输入对话框 */
 				if(this.type) this.hideAll();
 				let t = this;
 				let args = arguments;
+				t.type = 'prompt';
+				if(args[0]){
+					t.msg = args[0];
+				}
+				else{
+					t.msg = '请输入标题';
+				}
+				if(args[1]){
+					t.prompt_value = args[1];
+				}
+				if(args[2]){
+					t.yes = args[2];
+				}
+				if(args[3]){
+					t.no = args[3];
+				}
 				setTimeout(function(){
-					t.type = 'prompt';
-					if(args[0]){
-						t.msg = args[0];
-					}
-					else{
-						t.msg = '请输入标题';
-					}
-					if(args[1]){
-						t.prompt_value = args[1];
-					}
-					if(args[2]){
-						t.yes = args[2];
-					}
-					if(args[3]){
-						t.no = args[3];
-					}
-					setTimeout(function(){
-						t.setPosition();
-						document.getElementById('j_diy_dialog_window_input').focus();
-					},10);
+					t.adjustModal();
+					t.setPosition();
+					document.getElementById('j_diy_dialog_window_input').focus();
 				},10);				
+			},
+			adjustModal: function(){
+				let modal = document.querySelector('.j_d_modal');
+				if(!modal)return;
+				modal.style.top = 0;
+				modal.style.left = 0;
 			}
 		},
 		mounted() {
 			let t = this;
 			window.onresize = function(){
+				/* 当窗口大小改变 改变对话框的位置 */
 				if(document.getElementById('j_diy_dialog_window')){
 					t.setPosition();
-				}
-				/* 当窗口大小改变 改变对话框的位置 */				
+				}				
 			}
 		}
 	}
