@@ -46,9 +46,9 @@
 						]
 					},
 					{
-						name: '一级标题四',
+						name: '指令',
 						sons: [
-							{name: '四点一',url: 'sidianyi'},
+							{name: '数值控制',url: 'numCtrl'},
 							{name: '四点二',url: 'sidianer'}
 						]
 					}
@@ -71,12 +71,12 @@
 		},
 		mounted(){
 			let url = location.href;
-			this.current_url = url.split('!#/')[1].split('?')[0];
+			this.current_url = url.split('#/')[1].split('?')[0];
 		},
 		watch: {
 			$route(to,from){
 			    let url = location.href;
-				this.current_url = url.split('!#/')[1].split('?')[0];
+				this.current_url = url.split('#/')[1].split('?')[0];
 			}
 		}
 	}

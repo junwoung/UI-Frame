@@ -30,6 +30,8 @@ import getParam from '../business/commonFunction/param.vue'
 import getDate from '../business/commonFunction/date.vue'
 import useAxios from '../business/commonFunction/axios.vue'
 
+import numCtrl from '../business/direction/numCtrl.vue'
+
 Vue.use(frame);
 Vue.use(Router);
 Vue.use(vPage);
@@ -95,6 +97,10 @@ export default new Router({
 	    {
 	    	path: '/axios',
 	    	component: useAxios
+	    },
+	    {
+	    	path: '/numCtrl',
+	    	component: numCtrl
 	    },
 	    {
 	    	path: '*',

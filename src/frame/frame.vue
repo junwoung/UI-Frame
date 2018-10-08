@@ -47,7 +47,7 @@ export default{
 </script>
 
 <style>
-	.frame_body{min-height:883px;background-color:#f5f5f5;position:relative;top:0;float:left;width:100%;min-width:1200px;height:auto;}
+	.frame_body{min-height:878px;background-color:#f5f5f5;position:relative;top:0;float:left;width:100%;min-width:1200px;height:auto;}
 	.frame_container_div{margin-left:240px;margin-top:40px;margin-right:20px;position:relative;min-height:769px;background-color:#fff;padding:0;overflow:hidden;height:auto;}
 	.frame_container{margin:0 20px;padding:20px 0;}
 	.frame_footer{color:#bbb;bottom:20px;margin-left:240px;height:50px;line-height:50px;text-align:center;}
