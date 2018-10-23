@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import axios from 'axios'
+import echarts from 'echarts'
 
 import frame from '../frame/frame.vue'
 import commonjs from '../frame/common/common.js'
@@ -29,8 +30,13 @@ import upload from '../business/upload/upload.vue'
 import getParam from '../business/commonFunction/param.vue'
 import getDate from '../business/commonFunction/date.vue'
 import useAxios from '../business/commonFunction/axios.vue'
+import useEcharts from '../business/echarts/echarts.vue'
 
 import numCtrl from '../business/direction/numCtrl.vue'
+import lazyLoading from '../business/direction/lazyLoad.vue'
+import lazyLoad from '../directive/lazyLoad.js'
+
+import pageDetail from '../business/page/detail.vue'
 
 Vue.use(frame);
 Vue.use(Router);
@@ -41,8 +47,10 @@ Vue.use(vCarousel);
 Vue.use(vScore);
 Vue.use(vTime);
 Vue.use(vUpload);
+Vue.use(lazyLoad);
 
 Vue.prototype.$axios = axios;
+Vue.prototype.$echarts = echarts;
 
 export default new Router({
   routes: [
@@ -101,6 +109,18 @@ export default new Router({
 	    {
 	    	path: '/numCtrl',
 	    	component: numCtrl
+	    },
+	    {
+	    	path: '/lazyLoad',
+	    	component: lazyLoading
+	    },
+	    {
+	    	path: '/pageDetail',
+	    	component: pageDetail
+	    },
+	    {
+	    	path: '/echarts',
+	    	component: useEcharts
 	    },
 	    {
 	    	path: '*',

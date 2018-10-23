@@ -4,8 +4,8 @@
 			<li class="li_first" :class="{'li_parent':d.sons && !show_son(d.sons),'li_parent_active':d.sons && show_son(d.sons),'li_active':d.url == current_url}"  v-for="d in data">
 				<a @click.stop='turn_route(d.sons[0].url)' v-if="d.sons" class="a_first" :href="'!#/'+d.sons[0].url">
 					<span>{{d.name}}</span>
-					<li class="li_second" v-for="s in d.sons" v-show="show_son(d.sons)" :class="{'li_active':s.url == current_url}">
-						<a @click.stop='turn_route(s.url)' :href="s.url?('!#/'+s.url):''" class="a_second" :class="{'nav_active':s.url == current_url}">
+					<li class="li_second" v-for="s in d.sons" v-show="show_son(d.sons)" :class="{'li_active':show_son(s)}">
+						<a @click.stop='turn_route(s.url)' :href="s.url?('!#/'+s.url):''" class="a_second" :class="{'nav_active':show_son(s)}">
 							<span class="sp_name">{{s.name}}</span>
 						</a>
 					</li>
@@ -26,7 +26,7 @@
 						name: '插件',
 						sons: [
 							{name: '选择',url: 'select'},
-							{name: '分页',url: 'pagination'},
+							{name: '分页',url: 'pagination',sons: [{name: '详情',url: 'pageDetail'}]},
 							{name: '轮播',url: 'carousel'},
 							{name: '评分',url: 'score'},
 							{name: '时间',url: 'time'},
@@ -42,14 +42,15 @@
 						sons: [
 							{name: '获取url参数',url: 'getUrlParam'},
 							{name: '获取格式化时间',url: 'getFormatDate'},
-							{name: 'axios',url: 'axios'}
+							{name: 'axios',url: 'axios'},
+							{name: 'echarts',url: 'echarts'}
 						]
 					},
 					{
 						name: '指令',
 						sons: [
 							{name: '数值控制',url: 'numCtrl'},
-							{name: '四点二',url: 'sidianer'}
+							{name: '图片懒加载',url: 'lazyLoad'}
 						]
 					}
 				],
@@ -58,12 +59,35 @@
 		},
 		methods: {
 			show_son: function(arr){
-				for(let i = 0; i < arr.length; i++){
-					if(arr[i].url === this.current_url){
+				if(arr instanceof Array){
+					for(let i = 0; i < arr.length; i++){
+						if(arr[i].url === this.current_url){
+							return true;
+						}
+						if(arr[i].sons){
+							for(let j = 0; j < arr[i].sons.length; j++){
+								if(arr[i].sons[j].url === this.current_url){
+									return true;
+								}
+							}
+						}
+					}
+					return false;
+				}
+				else{
+					if(arr.url === this.current_url){
 						return true;
 					}
+					if(arr.sons){
+						for(let i = 0; i < arr.sons.length; i++){
+							if(arr.sons[i].url === this.current_url){
+								return true;
+							}
+						}
+					}
+					return false;
 				}
-				return false;
+				
 			},
 			turn_route: function(url){
 				this.current_url = url;

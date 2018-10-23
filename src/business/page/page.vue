@@ -1,7 +1,12 @@
 <template>
 	<div>
-		<my-pagination  :page='page' v-on:turn_page='turn_page'></my-pagination>
-		<my-pagination  :page='page2' v-on:turn_page='turn_page2'></my-pagination>
+		<div class="clearfix">
+			<my-pagination  :page='page' v-on:turn_page='turn_page'></my-pagination>
+		</div>
+		<div class="clearfix">
+			<my-pagination  :page='page2' v-on:turn_page='turn_page2'></my-pagination>
+		</div>
+		<p><a href="!#/pageDetail">go detail</a></p>
 	</div>
 </template>
 <script>
