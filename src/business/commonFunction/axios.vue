@@ -15,11 +15,10 @@ import Vue from 'vue'
 			getData: function(){
 				this.$axios({
 					method: 'GET',
-					url: 'http://localhost.com/yii/testdrive/index.php?r=user/view&id=1',
-					dataType: 'jsonp'
+					url: 'http://localhost.com/yii/testdrive/index.php?r=user/view&id=2',
 				}).then(function(res){
 					if(res.status == 200){
-						Vue.prototype.Layer.tips('用户名： '+ res.data.username + ' ,密码： '+ res.data.password + ' 。');
+						Vue.prototype.Layer.tips('用户名： '+ res.data.name + ' ,密码： '+ res.data.password + ' 。');
 						console.log(res.data);
 					}
 				}).catch(function(err){
