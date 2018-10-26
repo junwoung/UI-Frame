@@ -145,7 +145,7 @@
 				let b_width = window.innerWidth;
 				let b_height = window.innerHeight;
 				let win = document.getElementById('j_diy_dialog_window');
-				let offset_w = (b_width - win.offsetWidth-100)/2;
+				let offset_w = (b_width - win.offsetWidth)/2;
 				let style_txt = 'left:' + offset_w + 'px;';
 				if(win.offsetHeight < b_height){
 					style_txt += 'top:' + (b_height - win.offsetHeight-200)/2 +'px';

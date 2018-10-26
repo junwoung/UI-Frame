@@ -1,10 +1,11 @@
 <template>
 	<div class="">
+		<my-dialog ref="Layer"></my-dialog>
 		<f-header></f-header>
 		<div class="frame_body " id="frame_body">
 			<f-nav></f-nav>
 			<div class="frame_container_div">
-				<div class="clearfix frame_container">
+				<div class="clearfix frame_container" v-if='routerFlag'>
 					<router-view></router-view>
 				</div>
 			</div>
@@ -12,7 +13,6 @@
 				<span>@copyright wangjun自定义组件库</span>
 			</div>
 		</div>	
-		<my-dialog ref="Layer"></my-dialog>
 	</div>
 </template>
 
@@ -30,18 +30,19 @@ export default{
 	name: 'myframe',
 	data(){
 		return{
-
+			routerFlag: false
 		}
 	},
 	components: {
 		'f-header': fHeader,
 		'f-nav': fNav
 	},
-	mounted(){
-		Vue.prototype.Layer = this.$refs.Layer;
+	mounted(){	
+		Vue.prototype.Layer = this.$refs.Layer;	
+		this.routerFlag = true;
 	},
 	beforeMount(){
-
+		
 	}
 }
 </script>

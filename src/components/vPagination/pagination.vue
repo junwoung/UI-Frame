@@ -52,10 +52,11 @@
 			init:function(){
 				/* 初始化分页插件 */
 				var t = this;
+				console.log(this.page)
 				if(this.page){
 					if(this.page.total){
-						this.isShow = true;
 						this.total = this.page.total;
+						this.isShow = true;
 					}
 					if(this.page.current){
 						this.current = this.page.current;
@@ -170,7 +171,9 @@
 		    }
 		},
 		mounted(){
-			this.init();
+			if(!this.page.current)this.$set(this.page,'current',1);
+			if(!this.page.size)this.$set(this.page,'size',20);
+			this.init();			
 		},
 		watch: {
 			'page.total': function(){
@@ -198,7 +201,7 @@
 	.j_pagination_div .ul li:hover{color: #3896fe;border: 1px solid #3896fe;}
 	.j_pagination_div .j_select_div{position: relative;float: left;}
 	.j_pagination_div .j_selected_span{text-align:left;display: inline-block;width: 60px;height: 30px;border: 1px solid #dddddd;padding-left: 10px;line-height: 30px;border-radius: 3px;background: url(down.png) no-repeat 50px 10px;cursor: pointer;}
-	.j_pagination_div .j_pagenum_list{position: absolute;border-radius:3px;border: 1px solid #dddddd; width: 70px;top: 35px;left: 25px;background-color: #ffffff;z-index: 10;}
+	.j_pagination_div .j_pagenum_list{position: absolute;border-radius:3px;border: 1px solid #dddddd; width: 70px;bottom: 35px;left: 5px;background-color: #ffffff;z-index: 10;}
 	.j_pagination_div .j_pagenum_list span{display: block;width: 100%;text-align: center;height: 25px;line-height: 25px;cursor: pointer;}
 	.j_pagination_div .j_pagenum_list .selected{color: #3896fe;}
 	.j_pagination_div .j_turn_div{float: left;margin-left: 15px;}

@@ -1,0 +1,39 @@
+/** 通用样式清除 **/
+html{padding:0;margin:0;height:100%;}
+body{padding:0;margin:0;height:100%;}
+*{margin: 0;padding: 0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;}
+#app{padding:0;margin:0;}
+.clearfix{zoom : 1;}
+.clearfix:after,.clearfix:before {content : '';display : block;width : 0;height : 0;visibility : hidden;}
+.clearfix:after {clear : both;}
+input{outline: none;}
+
+/** 列表样式控制 **/
+.list{width: 100%;color: #666;text-align: center;font-size: 14px;border-collapse: collapse;margin-top: 30px;}
+.list thead{font-size: 16px;background-color: #F5F9FD;}
+.list thead th,.list thead td,.list thead tr{height: 90px; }
+.list tbody tr{height: 80px;}
+.list tbody tr:nth-child(even){background-color: #F5F9FD;}
+.list tbody tr:hover{background-color: #eee;}
+
+/** 表单样式控制 **/
+.control_input{width: 100%;min-height: 30px;float: left;font-size: 14px;margin-bottom: 20px;}
+.control_input>label{width: 120px;text-align: right;letter-spacing: 5px;float: left;color: #738299;height: 30px;line-height: 30px;}
+.control_input>.require:before{content: '*';color: rgb(255,0,0);position: relative;top: 2px;}
+.control_input>label:after{content: ':';position: relative;margin-right: 10px;}
+.control_input>div{float: left;position: relative;}
+.input{width: 150px;height: 28px;border: 1px solid #bbb;border-radius: 2px;padding: 0 10px;}
+.input_underline{width: 150px;height: 28px;border: none;border-bottom: 1px solid #ddd;}
+.control_input .tips{color: rgba(0,0,0,0.2);}
+.control_input .error{color: rgba(255,0,0,1);margin-left:10px;}
+.control_input .success{color: #32CD32;margin-left:10px;}
+
+.control_button{width: 100%;text-align: center;float: left;}
+.btn{cursor: pointer;outline: none;border: none;transition: filter 0.3s;letter-spacing: 3px;}
+.btn:hover{filter: opacity(0.8);}
+.btn_default{background-color: #0075ff;color: #fff;}
+.btn_media{width: 150px;height: 30px;}
+
+.control_footer{font-size: 14px;color: #bbb;margin-top: 10px;text-align: center;float: left;width: 100%;}
+.a{color: #0075ff;text-decoration: none;cursor: pointer;}
+.a:hover{text-decoration: underline;}
