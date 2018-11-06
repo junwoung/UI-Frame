@@ -112,6 +112,7 @@ export default{
 			 for(let key in this.timeObj){
 				this.$data[key] = this.timeObj[key];
 			}
+			if(!this.timeObj.selected){this.timeObj.selected = ''}
 			if(this.min){
 				if(typeof this.min == "string") this.min = (new Date(this.min)).valueOf();
 			}
@@ -135,17 +136,9 @@ export default{
 						break;
 					default:
 						date = new Date(this.selected);
-				}
-				// if(this.selected == 'today'){
-				// 	this.now_date();
-				// }
-				// else{
-				// 	date = new Date(this.selected);
-				// }
-				
+				}				
 			}
 			if(this.selected === undefined){
-				console.log(1111);
 				date = new Date();
 			}
 			let year = date.getFullYear();
@@ -433,6 +426,9 @@ export default{
 		},
 		'timeObj.min': function(){
 			this.init();
+		},
+		'timeObj.max': function(){
+			this.init()
 		},
 		'selected': function(val){
 			this.timeObj.selected = val;

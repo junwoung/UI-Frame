@@ -52,7 +52,6 @@
 			init:function(){
 				/* 初始化分页插件 */
 				var t = this;
-				console.log(this.page)
 				if(this.page){
 					if(this.page.total){
 						this.total = this.page.total;

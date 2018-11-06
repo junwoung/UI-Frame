@@ -131,9 +131,39 @@
 			}
 		},
 		methods: {
+			init: function(){
+				/* 在节点创建之前将传入的参数赋值给相应的变量 */
+				if(this.select.data && this.select.data.length){
+					for(let key in this.select){
+						this.$data[key] = this.select[key];
+					}
+					/* 用于query 保存传入的初始值 */
+					this.data_select = JSON.parse(JSON.stringify(this.data));
+					if(this.type == 'checkbox'){
+						/* 用于checkbox 当disable为part时，用于确定已选的参数不可被取消 */
+						this.data_select = JSON.parse(JSON.stringify(this.selected));
+					}
+				}
+				if(this.selected !== null){
+					/* 初始化select选中的文本 */
+					for(let i = 0; i < this.data.length; i++){
+						if(this.selected == (this.data[i].id !== undefined ? this.data[i].id : this.data[i][this.config.id])){
+							this.txt = this.data[i].name || this.data[i][this.config.name];
+							break;
+						}
+					}
+				}
+				if(this.select.type == 'switch'){
+					for(let key in this.select){
+						this.$data[key] = this.select[key];
+					}
+				}
+			},
 			get_focus: function(event){
 				/**	让select第一个文本框获取焦点 */
-				event.target.parentNode.firstChild.focus();
+				setTimeout(()=>{					
+					event.target.parentNode.firstChild.focus()
+				},150)		
 			},
 			get_focus2: function(event){
 				/**	让select query文本框获取焦点 */
@@ -149,7 +179,14 @@
 			},
 			show_options: function(event){
 				/**	当select第一个文本框获取焦点时展示下拉列表选项 */
-				 event.target.parentNode.lastChild.setAttribute('class','j_ul_options');
+					// let className = event.target.parentNode.lastChild.getAttribute('class')
+					// console.log(className)
+					// if(className.indexOf('hide') !== -1){
+						event.target.parentNode.lastChild.setAttribute('class','j_ul_options');
+					// }
+					// else{
+					// 	event.target.parentNode.lastChild.setAttribute('class','j_ul_options hide');
+					// }		 
 			},
 			show_options2: function(event){
 				/**	当select  query文本框获取焦点时展示下拉列表选项 */
@@ -423,36 +460,14 @@
 					
 		},
 		beforeMount(){
-			/* 在节点创建之前将传入的参数赋值给相应的变量 */
-			if(this.select.data && this.select.data.length){
-				for(let key in this.select){
-					this.$data[key] = this.select[key];
-				}
-				/* 用于query 保存传入的初始值 */
-				this.data_select = JSON.parse(JSON.stringify(this.data));
-				if(this.type == 'checkbox'){
-					/* 用于checkbox 当disable为part时，用于确定已选的参数不可被取消 */
-					this.data_select = JSON.parse(JSON.stringify(this.selected));
-				}
-			}
-			if(this.selected !== null){
-				/* 初始化select选中的文本 */
-				for(let i = 0; i < this.data.length; i++){
-					if(this.selected == (this.data[i].id !== undefined ? this.data[i].id : this.data[i][this.config.id])){
-						this.txt = this.data[i].name || this.data[i][this.config.name];
-						break;
-					}
-				}
-			}
-			if(this.select.type == 'switch'){
-				for(let key in this.select){
-					this.$data[key] = this.select[key];
-				}
-			}
+			this.init()
 		},
 		watch:{
 			'selected': function(val){
 				this.select.selected = val;
+			},
+			'select.data': function(){
+				this.init()
 			}
 		}
 	}
