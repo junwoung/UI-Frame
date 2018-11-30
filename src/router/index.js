@@ -18,6 +18,8 @@ import select from '../business/select/select.vue'
 import vCarousel from '../components/vCarousel/carousel.js'
 import carousel from '../business/carousel/carousel.vue'
 
+import vCaro from '../components/vCaro/caro.js'
+
 import vScore from '../components//vScore/score.js'
 import score from '../business/score/score.vue'
 
@@ -38,19 +40,20 @@ import lazyLoad from '../directive/lazyLoad.js'
 
 import pageDetail from '../business/page/detail.vue'
 
-Vue.use(frame);
-Vue.use(Router);
-Vue.use(vPage);
-Vue.use(vDialog);
-Vue.use(vSelect);
-Vue.use(vCarousel);
-Vue.use(vScore);
-Vue.use(vTime);
-Vue.use(vUpload);
-Vue.use(lazyLoad);
+Vue.use(frame)
+Vue.use(Router)
+Vue.use(vPage)
+Vue.use(vDialog)
+Vue.use(vSelect)
+Vue.use(vCarousel)
+Vue.use(vCaro)
+Vue.use(vScore)
+Vue.use(vTime)
+Vue.use(vUpload)
+Vue.use(lazyLoad)
 
-Vue.prototype.$axios = axios;
-Vue.prototype.$echarts = echarts;
+Vue.prototype.$axios = axios
+Vue.prototype.$echarts = echarts
 
 export default new Router({
   routes: [

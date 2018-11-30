@@ -139,7 +139,7 @@
 	.j_div_imgs{width:100%;height:100%;position:relative;overflow:hidden;white-space:nowrap;}
 	.j_div_imgs2{width:100%;height:100%;position:relative;overflow:hidden;line-height:0;}
 	.j_div_img_show{width:100%;height:100%;position:absolute;left:0;transition:left 0.5s;}
-	.j_div_radios{position:absolute;bottom:0;left:0;background:#000;opacity:0.5;height:30px;width:100%;text-align:center;line-height:30px;}
+	.j_div_radios{position:absolute;bottom:0;left:0;background: linear-gradient(to top,rgba(0,0,0,1),rgba(0,0,0,0));opacity:0.5;height:30px;width:100%;text-align:center;line-height:30px;}
 	.j_sp_radio{display:inline-block;width:8px;height:8px;border-radius:50%;background-color:#666;margin-left:5px;cursor:pointer;position:relative;}
 	.j_sp_radio_selected{background-color:#fff;width:9px;height:9px;}
 	.j_div_arrow{position:absolute;top:40%;left:0;width:100%;height:0;}

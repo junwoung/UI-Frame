@@ -1,13 +1,19 @@
 <template>
 	<div>
-		<div class="carousel_div">
-			<my-carousel :carouselObj="carousel" @callback="select"></my-carousel>
+		<div class="clearfix">
+			<div class="carousel_div">
+				<my-carousel :carouselObj="carousel" @callback="select"></my-carousel>
+			</div>
+			<div class="carousel_div2">
+				<my-carousel :carouselObj="carousel2" @callback="select"></my-carousel>
+			</div>
+			<div class="carousel_div3">
+				<my-carousel :carouselObj="carousel3" @callback="select"></my-carousel>
+			</div>
 		</div>
-		<div class="carousel_div2">
-			<my-carousel :carouselObj="carousel2" @callback="select"></my-carousel>
-		</div>
-		<div class="carousel_div3">
-			<my-carousel :carouselObj="carousel3" @callback="select"></my-carousel>
+		
+		<div class="container">
+			<my-caro :caroObj="caro"></my-caro>
 		</div>
 	</div>
 </template>
@@ -52,6 +58,15 @@
 					],
 					arrow: true,
 					click: true
+				},
+				caro: {
+					data: [
+						{id:1,name:'first',src:require('../../components/vCarousel/imgs/57887c143a9e1.jpg'),url:'www.baidu.com'},
+						{id:2,name:'second',src:require('../../components/vCarousel/imgs/5a90d5cdb0a41.jpg'),url:'www.jingdong.com'},
+						{id:3,name:'third',src:require('../../components/vCarousel/imgs/5aa8f037cea1b.jpg'),url:'www.alibaba.com'},
+						{id:4,name:'fouth',src:require('../../components/vCarousel/imgs/ad1.jpg'),url:'www.tencent.com'},
+						{id:5,name:'fifth',src:require('../../components/vCarousel/imgs/background_1.jpg'),url:'www.konka.com'}
+					]
 				}
 			}
 		},
@@ -66,4 +81,5 @@
 	.carousel_div{width: 300px;height: 150px;float: left;margin-top: 10px;}
 	.carousel_div2{width: 200px;height: 150px;float: left;margin-top: 10px;margin-left:30px;}
 	.carousel_div3{width: 250px;height: 150px;float: left;margin-top: 10px;margin-left:30px;}
+	.container{width:auto;height: 200px;margin-top:100px;}
 </style>
