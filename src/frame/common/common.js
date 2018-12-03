@@ -222,6 +222,82 @@ function setCookie( name , value , expdays ){
 function delCookie( name ){
     this.setCookie( name , "" , -1 );
 }
+
+/**
+ * 封装原生ajax
+ */
+function ajax(method,url,data,success,error) {
+    if(arguments.length === 1 && typeof arguments[0] === 'object'){
+        //兼容多种格式传参
+        let send = arguments[0]
+        method = send.method || 'get'
+        url = send.url
+        data = send.param
+        success = send.success
+        error = send.error
+        var ContentType = send.ContentType || 'application/x-www-form-urlencoded'
+    }
+    if(!url)return
+    let request = null
+    //创建ajax请求，兼容ie
+    if(XMLHttpRequest){
+        request = new XMLHttpRequest()
+        console.log(111)
+    }
+    else{
+        request = new ActiveXObject()
+        console.log(222)
+    }
+    request.onreadystatechange = function () {
+        if(request.readyState == 4){
+            if(request.status == 200){
+                success(JSON.parse(request.responseText))
+            }
+            else {
+                error('请求失败')
+            }
+        }
+    }
+    if(method.toUpperCase() === 'GET'){
+        //拼接get请求参数
+        let param = '';
+        for(let key in data){
+            param += key + '=' + data[key] + '&'
+        }
+        if(param) param = param.substr(0,param.length-1)
+        if(url.indexOf('?') !== -1){
+            url += '&' + param
+        }
+        else{
+            url += '?' + param
+        }
+    }
+    request.onprogress = function(event){
+         if(event.lengthComputable){
+            console.log(event.position,event.totalSize);
+        }
+    }
+    request.open(method,url)
+    if(method.toUpperCase() === 'POST'){
+        /**
+         * 当请求为post时，需设置请求类型为application/x-www-form-urlencoded,而不能设置为application/json
+         * 原因：PHP后台识别不了请求类型为application/json
+         */
+         if(ContentType != 'multipart/form-data'){
+            if(typeof data === 'object'){
+                data = JSON.stringify(data)
+            }
+            request.setRequestHeader("Content-Type",ContentType)
+         }
+    }
+    request.send(data)
+    request.timeout = 3000
+    request.ontimeout = function(){
+        console.log('请求超时')
+    }
+}
+window.ajax = ajax  // 赋值给全局变量ajax
+
 const util = {
     'A_tips': {
         getUrlParam: '获取url链接后的参数',
