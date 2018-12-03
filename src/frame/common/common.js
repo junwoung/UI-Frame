@@ -242,11 +242,9 @@ function ajax(method,url,data,success,error) {
     //创建ajax请求，兼容ie
     if(XMLHttpRequest){
         request = new XMLHttpRequest()
-        console.log(111)
     }
     else{
         request = new ActiveXObject()
-        console.log(222)
     }
     request.onreadystatechange = function () {
         if(request.readyState == 4){
@@ -274,7 +272,7 @@ function ajax(method,url,data,success,error) {
     }
     request.onprogress = function(event){
          if(event.lengthComputable){
-            console.log(event.position,event.totalSize);
+            // console.log(event.position,event.totalSize);
         }
     }
     request.open(method,url)
