@@ -36,7 +36,9 @@
 		<div style="margin-top:20px;float:left;width:100%;" class="clerafix">
 			<my-select :select="selectSwitch" @callback="pick11"></my-select>
 		</div>
-	
+		<div>
+			<button @click='change'>click</button>
+		</div>
 	</div>
 </template>
 
@@ -221,7 +223,7 @@
 					// 	{id:9,name:'yjy2'},
 					// 	{id:5,name:'ypc'}
 					// ],
-					selected: 4
+					selected: 1
 				},
 				selectRd2:{
 					type: 'radio',
@@ -274,6 +276,13 @@
 			}
 		},
 		methods: {
+			init: function(){
+				this.selectRd.selected = 2
+				setTimeout(() => {
+					console.log(this.selectRd)
+				},1000)
+				
+			},
 			pick: function(selected){
 				console.log(selected);
 			},
@@ -306,7 +315,12 @@
 			},
 			pick11: function(selected){
 				console.log(selected);
+			},
+			change: function(){
+				this.init()
 			}
+		},
+		mounted(){
 		}
 	}
 </script>

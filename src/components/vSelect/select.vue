@@ -468,6 +468,9 @@
 			},
 			'select.data': function(){
 				this.init()
+			},
+			'select.selected': function(val){
+				this.selected = val
 			}
 		}
 	}
