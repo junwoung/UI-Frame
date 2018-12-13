@@ -1,0 +1,165 @@
+/**
+ * @date 2018-12-11
+ * @author wangjun8@konka.com
+ * 定义弹窗样式
+ */
+.j-dialog{
+	/*display: flex;*/
+	/*position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	justify-content: center;*/
+}
+.j-dialog-modal{
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0,0,0,0.4);
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 16px;
+	font-family: '微软雅黑';
+	user-select: none;
+	/*opacity: 0;*/
+	/*transform: scale(0);
+	transition: transform 0.3s;*/
+	/*height: 0;*/
+	/*transition: height 0.3s,opacity 0.3s;*/
+	/*transition: opacity 0.3s;*/
+	/*overflow: hidden;*/
+}
+.j-dialog-modal>div{margin-bottom: 10%;}
+.j-dialog-loading{
+	padding: 30px;
+	background-color: #fff;
+	border-radius: 5px;
+	background-image: url(./imgs/loading.gif);
+	background-repeat: no-repeat;
+	background-position: 50% 30%;
+	width: 100px;height: 50px;
+	line-height: 85px;
+	text-align: center;
+	transform: scale(0);
+	transition: transform 0.3s;
+}
+.j-dialog-alert,.j-dialog-confirm{
+	box-shadow: 0 0 20px 1px #555;
+	min-width: 300px;
+	max-width: 400px;
+	transform: scale(0);
+	transition: transform 0.3s;
+}
+.j-dialog-prompt{
+	box-shadow: 0 0 20px 1px #555;
+	min-width: 300px;
+	transform: scale(0);
+	transition: transform 0.3s;
+}
+.j-dialog-header{
+	padding: 8px;
+	background-color: #fff;
+	text-align: right;
+	border-bottom: 1px solid #ddd;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	color: #bbb;
+}
+.j-dialog-close{cursor: pointer;}
+.j-dialog-close:hover{color: #3896f8;}
+.j-dialog-tip{float: left;font-size: 14px;}
+.j-dialog-body{
+	padding: 20px;
+	background-color: #fff;	
+	background-repeat: no-repeat;
+	background-position: 10px 50%;
+	min-height: 30px;
+	line-height: 30px;
+}
+.j-dialog-alert-body{
+	padding: 15px 15px 15px 45px;
+	background-image: url(./imgs/exclamation.png);
+}
+.j-dialog-footer{
+	height: 40px;
+	line-height: 40px;
+	background-color: #fff;
+	/*border-top: 1px solid #ddd;*/
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	color: #bbb;
+	overflow: hidden;
+}
+.j-btn{cursor: pointer;outline: none;border-top: 1px solid #ddd!important;}
+.j-btn:hover{opacity:80%;}
+.j-ensure{color: #fff;background-color: #3896f8;border: 1px solid #3896f8;}
+.j-alert-ensure{
+	width: 100%;
+	height: 100%;
+	background-color: #fff;
+	color: #3896f8;
+	border: none;
+	font-size: 16px;
+	letter-spacing: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.j-confirm-ensure,.j-confirm-cancel,.j-prompt-ensure,.j-prompt-cancel{width: 50%;height: 100%;background-color: #fff;border: none;font-size: 16px;}
+.j-confirm-ensure,.j-prompt-ensure{color: #3896f8;border-right: 1px solid #ddd;border-bottom-left-radius: 5px;}
+.j-confirm-cancel,.j-prompt-cancel{color: #999;border-bottom-right-radius: 5px;}
+
+.j-dialog-msg{
+	text-align: center;
+	position: fixed;
+	max-width: 200px;
+	min-width: 150px;
+	padding: 15px 30px;
+	background-color: rgba(0,0,0,0.5);
+	color: #fff;
+	top: 40%;
+	left: 45%;
+	border-radius: 5px;
+	cursor: pointer;
+	z-index: 1000;
+	overflow: hidden;
+	transform: scale(0);
+	transition: transform 0.3s,top 0.3s,opacity 0.2s;
+}
+.j-dialog-body label{font-size: 14px;margin-right: 15px;color: #555;}
+.j-dialog-body input{
+	outline: none;
+	height: 28px;
+	border: 1px solid #bbb;
+	width: 150px;
+	padding: 0 10px;
+	border-radius: 3px;
+}
+.j-dialog-body input:hover,.j-dialog-body input:focus{
+	border: 1px solid #3896f8;
+}
+.j-dialog-success{
+	background-color: #00cd00;
+	background-image: url(./imgs/success.png);
+	background-repeat: no-repeat;
+	background-position: 20px 50%;
+	min-width: 300px;
+	max-width: 400px;
+	top: 20%;
+	left: 35%;
+}
+.j-dialog-error{
+	background-color: #CD2626;
+	background-image: url(./imgs/error.png);
+	background-repeat: no-repeat;
+	background-position: 20px 50%;
+	min-width: 300px;
+	max-width: 400px;
+	top: 20%;
+	left: 35%;
+}

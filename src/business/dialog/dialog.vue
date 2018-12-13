@@ -7,6 +7,17 @@
 		<button @click='show_prompt'>prompt</button>
 		<button @click='show_ref'>ref</button>
 		<my-dialog ref="Layer"></my-dialog>
+		<div>
+			<button @click='show_loading2'>loading2</button>
+			<button @click='show_alert2'>alert2</button>
+			<button @click='show_confirm2'>confirm2</button>
+			<button @click='show_tips2'>tips2</button>
+			<button @click='show_success'>success</button>
+			<button @click='show_error'>error</button>
+			<button @click='show_prompt2'>prompt2</button>
+			<button @click='show_ref2'>ref2</button>
+			<button @click='open'>open</button>
+		</div>
 	</div>
 </template>
 <script>
@@ -27,6 +38,102 @@
 			}
 		},
 		methods: {
+			show_loading2: function(){
+				let id = this.$dialog.loading('hhhh',false,() => {
+					console.log('this is loading')
+				})
+				let aid = this.$dialog.alert('你叫XX吗？',() => {
+					console.log('alert yes')
+				})
+				let cid = this.$dialog.confirm('要转账100元吗？',() => {
+					console.log('确认转账')
+				},() => {
+					console.log('取消，不转账')
+				})
+				let mid = this.$dialog.msg('你已经成功了',8000,() => {
+					console.log('成功提示')
+				})
+				let pid = this.$dialog.prompt('你的名字','xxxx',(value) => {
+					console.log('你的输入是'+value)
+				},() => {
+					console.log('你已取消输入')
+				})
+				let sid = this.$dialog.success('成功',6000,() => {
+					console.log('成功')
+				})
+				let eid = this.$dialog.error('失败',6000,() => {
+					console.log('失败')
+				})
+				setTimeout(() => {
+					// this.$dialog.close(id)
+					// this.$dialog.close(aid)
+					// this.$dialog.close(cid)
+					// this.$dialog.close(mid)
+					// this.$dialog.close(pid)
+					// this.$dialog.close(sid)
+					// this.$dialog.close(eid)
+					this.$dialog.closeAll()
+					// this.$dialog.changeMsg(id,'aaaaaa')
+				},3000)
+			},
+			show_alert2: function(){
+				this.$dialog.alert('你叫XX吗？',() => {
+					console.log('alert yes')
+				})
+			},
+			show_confirm2: function(){
+				this.$dialog.confirm('要转账100元吗？',() => {
+					console.log('确认转账')
+				},() => {
+					console.log('取消，不转账')
+				})
+			},
+			show_tips2: function(){
+				this.$dialog.msg('你已经成功了',6000,() => {
+					console.log('成功提示')
+				})
+			},
+			show_success: function(){
+				this.$dialog.success('成功',6000,() => {
+					console.log('成功')
+				})
+			},
+			show_error: function(){
+				this.$dialog.error('失败',6000,() => {
+					console.log('失败')
+				})
+			},
+			show_prompt2: function(){
+				this.$dialog.prompt('你的名字', 'xxxx',(value) => {
+					console.log('你的输入是'+value)
+				},() => {
+					console.log('你已取消输入')
+				})
+			},
+			show_ref2: function(){
+				console.log(this.$dialog)
+			},
+			open: function(){
+				this.$dialog.open({
+					type: 'loading',
+					msg: 'hello',	//提示信息，所有种类弹框均需要，选择传入（有默认值）
+					timeout: 3000,	//当弹框为msg、success、error时，用于控制展示时长，选择传入
+					value: 'hi',	//当弹框为prompt时，传入value用于初始化弹框值，选择传入
+					clickClose: true,	//当弹框为loading时，出入true表示，加载对话框可以手动关闭，选择传入
+					ensure: (value) => {
+						//所有包含 `确认` 按钮，点击触发的回调，选择传入
+						console.log('通过open打开'+ value)
+					},
+					cancel: () => {
+						//所有包含 `取消` 按钮，点击触发的回调，选择传入
+						console.log('你已经关闭通过open打开的弹窗')
+					},
+					callback: () => {
+						//当弹框为loading、msg、success、error时，关闭弹窗，触发相应回调函数，选择传入
+						console.log('这是回调函数啊')
+					}
+				})
+			},
 			show_ref: function(){
 				console.log(this.$refs);
 			},

@@ -12,6 +12,8 @@ import page from '../business/page/page.vue'
 import vDialog from '../components/VDialog/dialog.js'
 import dialog from '../business/dialog/dialog.vue'
 
+import newDialog from '../components/dialog/dialog.js'
+
 import vSelect from '../components/vSelect/select.js'
 import select from '../business/select/select.vue'
 
@@ -54,6 +56,7 @@ Vue.use(lazyLoad)
 
 Vue.prototype.$axios = axios
 Vue.prototype.$echarts = echarts
+Vue.prototype.$dialog = newDialog
 
 export default new Router({
   routes: [
