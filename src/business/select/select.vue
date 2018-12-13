@@ -285,6 +285,7 @@
 			},
 			pick: function(selected){
 				console.log(selected);
+				this.selectObj2.selected = selected.index
 			},
 			pick2: function(selected){
 				console.log(selected);

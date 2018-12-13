@@ -471,6 +471,14 @@
 			},
 			'select.selected': function(val){
 				this.selected = val
+				let flag = false
+				this.data.map((item) => {
+					if(item.id === val){
+						flag = true
+						this.txt = item.name
+					}
+				})
+				if(!flag)this.txt = ''
 			}
 		}
 	}
