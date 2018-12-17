@@ -17,6 +17,7 @@
 			<button @click='show_prompt2'>prompt2</button>
 			<button @click='show_ref2'>ref2</button>
 			<button @click='open'>open</button>
+			<button @click='progress'>progress</button>
 		</div>
 	</div>
 </template>
@@ -42,28 +43,28 @@
 				let id = this.$dialog.loading('hhhh',false,() => {
 					console.log('this is loading')
 				})
-				let aid = this.$dialog.alert('你叫XX吗？',() => {
-					console.log('alert yes')
-				})
-				let cid = this.$dialog.confirm('要转账100元吗？',() => {
-					console.log('确认转账')
-				},() => {
-					console.log('取消，不转账')
-				})
-				let mid = this.$dialog.msg('你已经成功了',8000,() => {
-					console.log('成功提示')
-				})
-				let pid = this.$dialog.prompt('你的名字','xxxx',(value) => {
-					console.log('你的输入是'+value)
-				},() => {
-					console.log('你已取消输入')
-				})
-				let sid = this.$dialog.success('成功',6000,() => {
-					console.log('成功')
-				})
-				let eid = this.$dialog.error('失败',6000,() => {
-					console.log('失败')
-				})
+				// let aid = this.$dialog.alert('你叫XX吗？',() => {
+				// 	console.log('alert yes')
+				// })
+				// let cid = this.$dialog.confirm('要转账100元吗？',() => {
+				// 	console.log('确认转账')
+				// },() => {
+				// 	console.log('取消，不转账')
+				// })
+				// let mid = this.$dialog.msg('你已经成功了',8000,() => {
+				// 	console.log('成功提示')
+				// })
+				// let pid = this.$dialog.prompt('你的名字','xxxx',(value) => {
+				// 	console.log('你的输入是'+value)
+				// },() => {
+				// 	console.log('你已取消输入')
+				// })
+				// let sid = this.$dialog.success('成功',6000,() => {
+				// 	console.log('成功')
+				// })
+				// let eid = this.$dialog.error('失败',6000,() => {
+				// 	console.log('失败')
+				// })
 				setTimeout(() => {
 					// this.$dialog.close(id)
 					// this.$dialog.close(aid)
@@ -115,11 +116,13 @@
 			},
 			open: function(){
 				this.$dialog.open({
-					type: 'loading',
+					type: 'progress',
 					msg: 'hello',	//提示信息，所有种类弹框均需要，选择传入（有默认值）
 					timeout: 3000,	//当弹框为msg、success、error时，用于控制展示时长，选择传入
 					value: 'hi',	//当弹框为prompt时，传入value用于初始化弹框值，选择传入
 					clickClose: true,	//当弹框为loading时，出入true表示，加载对话框可以手动关闭，选择传入
+					current: 10,
+					total: 234,
 					ensure: (value) => {
 						//所有包含 `确认` 按钮，点击触发的回调，选择传入
 						console.log('通过open打开'+ value)
@@ -133,6 +136,22 @@
 						console.log('这是回调函数啊')
 					}
 				})
+			},
+			progress: function(){
+				let id = this.$dialog.progress('0','93M',false,() => {
+					console.log('上传完毕')
+				})
+				let i = 0
+				let interval = setInterval(() => {
+					i++
+					if(i > 3){
+						clearInterval(interval)
+						this.$dialog.close(id,() => {
+							console.log('上传完毕')
+						})
+					}
+					this.$dialog.changeProgress(id,i*27+'M','107M')
+				},1000)
 			},
 			show_ref: function(){
 				console.log(this.$refs);

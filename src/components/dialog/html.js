@@ -46,6 +46,18 @@
 			 			<div class='j-dialog-footer'><button class='j-prompt-ensure j-ensure j-btn'>确认</button><button class='j-prompt-cancel j-btn'>取消</button></div>
 			 		</div>`
 		return str
+ 	},
+ 	progress: (current,total) => {
+ 		let c = parseFloat(current),t = parseFloat(total),msg = '当前进度未知'
+ 		if(c > t) c = t
+ 		let percent = ((c/t)*100).toFixed(2) + '%'
+ 		if(current && total)msg = '当前进度： ' + current + ' / ' + total + ' ，完成度： ' + percent
+ 		let str = `<div class='j-dialog-progress j-dialog-container'>
+ 						<div class='j-progress-background'></div>
+ 						<div class='j-progress-current' style='width:${percent}'></div>
+ 						<span>${msg}</span>
+ 				   </div>`
+ 		return str
  	}
  }
 

@@ -5,12 +5,13 @@
  */
  import css from './dialog.css'
  import temp from './html.js'
-
+//存储各信息提示框定时器对象，避免因为定时器回调函数触发两次bug
+let timeouts = {}
 const dialog = {
 	open: (obj) => {
 		//通过传入对象参数，判断指定type，打开相应弹窗
 		if(obj && typeof obj === 'object' && obj.type){
-			let [msg,value,ensure,cancel,timeout,func,clickClose] = [obj.msg,obj.value,obj.ensure,obj.cancel,obj.timeout,obj.callback,obj.clickClose]
+			let [msg,value,ensure,cancel,timeout,func,clickClose,current,total] = [obj.msg,obj.value,obj.ensure,obj.cancel,obj.timeout,obj.callback,obj.clickClose,obj.current,obj.total]
 			switch(obj.type){
 				case 'alert': {
 					return dialog.alert(msg,ensure)
@@ -40,7 +41,10 @@ const dialog = {
 					return dialog.error(msg,timeout,func)
 					break
 				};
-				default: dialog.alert('请传入合法的type，type可以为【alert、confirm、prompt、loading、msg、success、error】之一')
+				case 'progress': {
+					return dialog.progress(current,total,clickClose,func)
+				};
+				default: dialog.alert('请传入合法的type，type可以为【alert、confirm、prompt、loading、msg、success、error、progress】之一')
 			}
 		}
 	},
@@ -49,7 +53,7 @@ const dialog = {
 		let flag = true
 		let className = event ? event.target.className : ''
 		if(className === 'j-dialog-modal' || className === 'j-dialog-close' || className.indexOf('j-dialog-msg') !== -1)flag = false
-		if(func === undefined && event === undefined)flag = false
+		if(event === undefined)flag = false
 		if(flag)return
 		if(!id)return
 		common.removeBind(id)
@@ -70,8 +74,12 @@ const dialog = {
 				}
 			}
 			// 加载对话框、提示、成功提示、失败提示可以出发相应回调
-			if(id.indexOf('loading') !== -1 || id.indexOf('msg') !== -1 || id.indexOf('success') !== -1 || id.indexOf('error') !== -1 ){
+			if(id.indexOf('loading') !== -1 || id.indexOf('msg') !== -1 || id.indexOf('success') !== -1 || id.indexOf('error') !== -1 || id.indexOf('progress') !== -1){
 				func && func()
+				//如果是主动触发关闭弹框，则取消之前绑定的定时器，以免重复调用
+				if(timeouts[id]){
+					clearTimeout(timeouts[id])
+				}
 			}
 		},300)		
 	},
@@ -89,14 +97,14 @@ const dialog = {
 	},
 	alert: (msg,func) => {
 		//打开警告对话框
-		let id = common.createAlert(msg,func)
+		let id = common.create('alert',msg)
 		common.bindClose(id)
 		common.bindAlertEnsure(id,func)
 		return id
 	},
 	confirm: (msg,ensure,cancel) => {
 		//打开确认对话框
-		let id = common.createConfirm(msg,ensure,cancel)
+		let id = common.create('confirm',msg,ensure,cancel)
 		common.bindClose(id)
 		common.bindBtnGroup(id,ensure,cancel,'confirm')
 		return id
@@ -110,7 +118,7 @@ const dialog = {
 	},
 	loading: (msg,autoClose = false,func) => {
 		//打开加载对话框
-		let id = common.createLoading(msg)
+		let id = common.create('loading',msg)
 		if(autoClose){
 			common.bindClose(id,func)
 		}
@@ -118,29 +126,39 @@ const dialog = {
 	},
 	msg: (msg,timeout = 3000,func) => {
 		//打开普通信息提示对话框
-		let id = common.createMsg(msg)
+		let id = common.createTips('msg',msg)
 		common.bindClose(id,func)
-		setTimeout(() => {
+		let tid = setTimeout(() => {
 			common.innerClose(id,func)
 		},timeout)
+		timeouts[id] = tid
 		return id
 	},
 	success: (msg,timeout = 3000,func) => {
 		//打开成功提示对话框
-		let id = common.createSuccess(msg)
+		let id = common.createTips('success',msg)
 		common.bindClose(id,func)
-		setTimeout(() => {
+		let tid = setTimeout(() => {
 			common.innerClose(id,func)
 		},timeout)
+		timeouts[id] = tid
 		return id
 	},
 	error: (msg,timeout = 3000,func) => {
 		//打开失败提示对话框
-		let id = common.createError(msg)
+		let id = common.createTips('error',msg)
 		common.bindClose(id,func)
-		setTimeout(() => {
+		let tid = setTimeout(() => {
 			common.innerClose(id,func)
 		},timeout)
+		timeouts[id] = tid
+		return id
+	},
+	progress: (current,total,clickClose,func) => {
+		let id = common.create('progress',current,total,func)
+		if(clickClose){
+			common.bindClose(id,func)
+		}
 		return id
 	},
 	changeMsg: (id,msg) => {
@@ -150,6 +168,22 @@ const dialog = {
 		if(dom){
 			dom.innerHTML = msg
 		}
+	},
+	changeProgress: (id,current,total) => {
+		let c = parseFloat(current),t = parseFloat(total)
+		if(c > t) c = t
+		let span = `#${id} .j-dialog-progress span`
+		span = document.querySelector(span)
+		let progress = `#${id} .j-dialog-progress .j-progress-current`
+		progress = document.querySelector(progress)
+		let msg = '当前进度未知'
+		let percent = 0
+		if(current && total){
+			percent = ((c/t)*100).toFixed(2) + '%'
+			msg = '当前进度： ' + current + ' / ' + total + ' ，完成度： ' + percent
+		}
+		if(span)span.innerText = msg
+		if(progress) progress.style.width = percent
 	}
 }
 
@@ -266,63 +300,21 @@ const common = {
 		modal.className = 'j-dialog'
 		return modal
 	},
-	createLoading: (msg) => {
-		//创建加载对话框
-		let id = 'loading' + common.getRandom()
+	create: (type,msg,ensure) => {
+		//创建指定对话框
+		let id = type + common.getRandom()
 		let modal = common.createModal()
 		modal.setAttribute('id',id)
-		modal.children[0].innerHTML = temp.loading(msg)
+		modal.children[0].innerHTML = temp[type](msg,ensure)
 		document.body.appendChild(modal)
 		common.createTransition(id,1)
 		return id
 	},
-	createAlert: (msg,func) => {
-		//创建警告对话框
-		let id = 'alert' + common.getRandom()
-		let modal = common.createModal()
-		modal.setAttribute('id',id)
-		modal.children[0].innerHTML = temp.alert(msg)
-		document.body.appendChild(modal)
-		common.createTransition(id,1)
-		return id
-	},
-	createConfirm: (msg,ensure,cancel) => {
-		//创建确认对话框
-		let id = 'confirm' + common.getRandom()
-		let modal = common.createModal()
-		modal.setAttribute('id',id)
-		modal.children[0].innerHTML = temp.confirm(msg)
-		document.body.appendChild(modal)
-		common.createTransition(id,1)
-		return id
-	},
-	createMsg: (msg) => {
-		//创建普通信息提示对话框
-		let id = 'msg' + common.getRandom()
+	createTips: (type,msg) => {
+		//创建指定信息提示对话框
+		let id = type + common.getRandom()
 		let dialog = document.createElement('div')
-		dialog.innerHTML = temp.msg(msg)
-		dialog.className = 'j-dialog'
-		dialog.setAttribute('id',id)
-		document.body.appendChild(dialog)
-		common.createTransition(id,1)
-		return id
-	},
-	createSuccess: (msg) => {
-		//创建成功提示对话框
-		let id = 'success' + common.getRandom()
-		let dialog = document.createElement('div')
-		dialog.innerHTML = temp.success(msg)
-		dialog.className = 'j-dialog'
-		dialog.setAttribute('id',id)
-		document.body.appendChild(dialog)
-		common.createTransition(id,1)
-		return id
-	},
-	createError: (msg) => {
-		//创建失败提示对话框
-		let id = 'error' + common.getRandom()
-		let dialog = document.createElement('div')
-		dialog.innerHTML = temp.error(msg)
+		dialog.innerHTML = temp[type](msg)
 		dialog.className = 'j-dialog'
 		dialog.setAttribute('id',id)
 		document.body.appendChild(dialog)
