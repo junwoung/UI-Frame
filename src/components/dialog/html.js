@@ -58,6 +58,13 @@
  						<span>${msg}</span>
  				   </div>`
  		return str
+ 	},
+ 	window: (html = '') => {
+ 		let str = `<div class='j-dialog-confirm j-dialog-container'>
+ 						<div class='j-dialog-header'><span class='j-dialog-tip'>警告</span><span class='j-dialog-close'>X</span></div>
+ 						${html}
+ 				   <div>`
+ 		return str
  	}
  }
 

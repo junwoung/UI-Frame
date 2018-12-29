@@ -6,7 +6,7 @@
  import css from './dialog.css'
  import temp from './html.js'
 //存储各信息提示框定时器对象，避免因为定时器回调函数触发两次bug
-let timeouts = {}
+let timeouts = {},tempurl = ''
 const dialog = {
 	open: (obj) => {
 		//通过传入对象参数，判断指定type，打开相应弹窗
@@ -160,6 +160,17 @@ const dialog = {
 			common.bindClose(id,func)
 		}
 		return id
+	},
+	window: (url,func) => {
+		tempurl = url
+		let id = null
+		let html = new Promise(load).then((res) => {
+			id = common.createWindow(res)
+			common.bindClose(id)
+			return id
+		}).catch(() => {
+			console.log('no')
+		})
 	},
 	changeMsg: (id,msg) => {
 		//切换弹框显示的提示信息
@@ -336,6 +347,15 @@ const common = {
 		common.createTransition(id,1)	
 		return id
 	},
+	createWindow: (html) => {
+		let id = 'window' + common.getRandom()
+		let modal = common.createModal()
+		modal.setAttribute('id',id)
+		modal.children[0].innerHTML = temp.window(html)
+		document.body.appendChild(modal)
+		common.createTransition(id,1)
+		return id
+	},
 	createTransition: (id,num) => {
 		//打开、关闭弹框添加动画效果
 		let dom = document.querySelector(`#${id} .j-dialog-container`)
@@ -361,6 +381,26 @@ const common = {
 		//获取随机数，结合弹框类型，生成唯一id（大概率事件），用于元素选取和删除节点
 		return Math.round(Math.random()*10000)
 	}
+}
+
+function load(resolve){
+	if(!tempurl)return
+	let request = null
+	if(XMLHttpRequest){
+		request = new XMLHttpRequest()
+	}
+	else{
+		request = new ActiveXObject()
+	}
+	request.onreadystatechange = function(){
+		if(request.readyState === 4){
+			if(request.status === 200){
+				 resolve(request.responseText)
+			}
+		}
+	}
+	request.open('get',tempurl)
+	request.send()
 }
 
 export default dialog

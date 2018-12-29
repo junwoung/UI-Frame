@@ -473,12 +473,12 @@
 				this.selected = val
 				let flag = false
 				this.data.map((item) => {
-					if(item.id === val){
+					if(item.id === val || item[this.config.id] === val){
 						flag = true
-						this.txt = item.name
+						this.txt = item.name || item[this.config.name]
 					}
 				})
-				if(!flag)this.txt = ''
+				if(!flag)this.txt = ''			
 			}
 		}
 	}

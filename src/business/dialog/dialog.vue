@@ -18,6 +18,7 @@
 			<button @click='show_ref2'>ref2</button>
 			<button @click='open'>open</button>
 			<button @click='progress'>progress</button>
+			<button @click='window'>window</button>
 		</div>
 	</div>
 </template>
@@ -35,7 +36,10 @@
 					type: Object,
 					default: null
 				},
-				input_value: ''
+				input_value: '',
+				test: {
+					input: 'hello a!'
+				}
 			}
 		},
 		methods: {
@@ -152,6 +156,14 @@
 					}
 					this.$dialog.changeProgress(id,i*27+'M','107M')
 				},1000)
+			},
+			window: function(){
+				// this.$dialog.window('../../../static/window.html',() => {
+				// 	console.log('打开指定弹框')
+				// })
+				this.$dialog.window('../../../static/window.html',() => {
+					console.log('打开指定弹框')
+				})
 			},
 			show_ref: function(){
 				console.log(this.$refs);
