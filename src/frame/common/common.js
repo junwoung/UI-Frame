@@ -296,6 +296,46 @@ function ajax(method,url,data,success,error) {
 }
 window.ajax = ajax  // 赋值给全局变量ajax
 
+/**
+ * 验签方法
+ * @param url 传入的url
+ * @param params 要校验的字段,数组,可以传入指定字段数组，也可以传空数组（表示sign字段以外的字段需要加密）
+ * @param md5fn 加签方法（前提是前端需要引入md5算法）
+ * @param salt 加密盐值
+ */
+function checkSign(url,params,md5fn,salt) {
+    if(!url || !params || !md5fn)return;
+    if(url.indexOf('?') === -1)return;
+    if(!params instanceof Array)return;
+    var arr = [],obj = {};
+    url = url.split('?')[1];
+    arr = url.split('&');
+    for(var i = 0,len = arr.length; i < len; i++){
+        var item_arr = arr[i].split('=');
+        if(item_arr[0] && item_arr[1]){
+            obj[item_arr[0]] = item_arr[1];
+        }
+    }
+    arr = {};
+    if(params.length === 0){
+        arr = JSON.parse(JSON.stringify(obj));
+        delete arr['sign'];
+    }
+    else {
+        for(var j = 0,len2 = params.length; j < len2; j++){
+            arr[params[j]] = obj[params[j]];
+        }
+    }
+    var result = md5fn(arr,salt);
+    if(result === obj['sign'].toUpperCase()){
+        return true;
+    }
+    else {
+        console.log(result);
+        return false;
+    }
+}
+
 const util = {
     'A_tips': {
         getUrlParam: '获取url链接后的参数',
@@ -308,7 +348,8 @@ const util = {
         flatten: '扁平化多维数组',
         flattenStr: '扁平化多维数组，输出string类型',
         copy: '数组拷贝',
-        getRandom: '获取指定范围的随机整数'
+        getRandom: '获取指定范围的随机整数',
+        checkSign: '参数校验'
     },
     'getUrlParam': getUrlParam,
     'getFormatDate': getFormatDate,
@@ -323,6 +364,7 @@ const util = {
     'getRandom': getRandom,
     'getCookie': getCookie,
     'setCookie': setCookie,
-    'delCookie': delCookie
+    'delCookie': delCookie,
+    'checkSign': checkSign
 };
 export default util
