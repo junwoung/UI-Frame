@@ -18,7 +18,7 @@ body{padding:0;margin:0;height:100%;}
 .btn-danger{background-color: #EE4000;color: #fff;}
 .btn-disable{color: #999;cursor: not-allowed;filter: opacity(1)!important;}
 .btn-minor{background-color: #fff;border:1px solid rgba(56, 150, 248, 1);color: rgba(56, 150, 248, 1);}
-.btn-media{width: 120px;height: 32px;line-height: 32px;}
+.btn-medium{width: 120px;height: 32px;line-height: 32px;}
 .btn-small{width: 80px;height: 28px;line-height: 28px;}
 .btn-large{width: 150px; height: 35px;line-height: 35px;}
 
@@ -41,7 +41,7 @@ body{padding:0;margin:0;height:100%;}
 .label-require{}/**带必填星号**/
 .label-require::before{content: '*';position: relative;color: red;top: 3px;}
 .label-small{width: 80px;}
-.label-media{width: 120px;}
+.label-medium{width: 120px;}
 .label-long{width: 150px;}
 .label-left{text-align: left;}
 .label-justify{text-align:justify;}/**两端对齐**/
