@@ -52,6 +52,10 @@
 							{name: '数值控制',url: 'numCtrl'},
 							{name: '图片懒加载',url: 'lazyLoad'}
 						]
+					},
+					{
+						name: '样式',
+						url: 'style'
 					}
 				],
 				current_url: ''

@@ -41,6 +41,7 @@ import lazyLoading from '../business/direction/lazyLoad.vue'
 import lazyLoad from '../directive/lazyLoad.js'
 
 import pageDetail from '../business/page/detail.vue'
+import styleComp from '../business/style/style.vue'
 
 Vue.use(frame)
 Vue.use(Router)
@@ -127,6 +128,10 @@ export default new Router({
 	    {
 	    	path: '/echarts',
 	    	component: useEcharts
+	    },
+	    {
+	    	path: '/style',
+	    	component: styleComp
 	    },
 	    {
 	    	path: '*',

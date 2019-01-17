@@ -5,7 +5,7 @@
 			<div class="clearfix j_div_select">
 				<input type="text" @blur="hide_options" @focus="show_options" style="width:0;height:0;outline:none;opacity:0;border:none;padding:0;marging:0;">
 				<span class="j_sp_select" :class="{'j_sp_select_dis':disable}" @click="get_focus">
-					<i class="j_i_dropdown"></i>
+					<i class="j_i_dropdown" @click="get_focus2"></i>
 					<span class="j_lb_selected" @click="get_focus2" :style="{color:txt ? '':'#bbb'}" :title="txt">{{txt ? txt : placeholder}}</span>
 				</span>
 				<ul class="j_ul_options hide">

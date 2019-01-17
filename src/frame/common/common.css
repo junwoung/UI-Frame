@@ -1,39 +1,112 @@
 /** 通用样式清除 **/
 html{padding:0;margin:0;height:100%;}
 body{padding:0;margin:0;height:100%;}
-*{margin: 0;padding: 0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;}
+*{margin: 0;padding: 0;font-family:'微软雅黑';}
 #app{padding:0;margin:0;}
 .clearfix{zoom : 1;}
 .clearfix:after,.clearfix:before {content : '';display : block;width : 0;height : 0;visibility : hidden;}
 .clearfix:after {clear : both;}
+
+/**
+ * 按钮样式
+ * 基础样式 + 皮肤 + 尺寸
+ */
+.btn{cursor: pointer;outline: none;border: none;letter-spacing: 3px;border-radius: 3px;transition: filter 0.3s;font-size: 14px;display: inline-block;text-align: center;}
+.btn:hover{filter: opacity(0.75);}
+.btn-default{background-color: rgba(56, 150, 248, 1);color: #fff;}
+.btn-green{background-color: #5CB85C;color: #fff;}
+.btn-danger{background-color: #EE4000;color: #fff;}
+.btn-disable{color: #999;cursor: not-allowed;filter: opacity(1)!important;}
+.btn-minor{background-color: #fff;border:1px solid rgba(56, 150, 248, 1);color: rgba(56, 150, 248, 1);}
+.btn-media{width: 120px;height: 32px;line-height: 32px;}
+.btn-small{width: 80px;height: 28px;line-height: 28px;}
+.btn-large{width: 150px; height: 35px;line-height: 35px;}
+
+/**
+ * 链接样式
+ * 链式按钮
+ */
+.a{display: inline-block;color: #3896f8;text-decoration: none;font-size: 14px;user-select: none;border-bottom: 1px solid transparent;}
+.a-link{border-bottom: 1px solid #3896f8;cursor: pointer;}
+.a-hover{}
+.a-hover:hover{border-bottom: 1px solid #3896f8;cursor: pointer;}
+.a-disable{color: #999;cursor: not-allowed;border-bottom: 1px solid #999;}
+
+/**
+ * 标签样式
+ * 默认文字右对齐
+ */
+.label{height: 36px;line-height: 36px;display: inline-block;font-size: 14px;color: #555;margin-right: 10px;text-align: right;position: relative;}
+.label:after{content: ':';position: absolute;right: -10px;top:0;}
+.label-require{}/**带必填星号**/
+.label-require::before{content: '*';position: relative;color: red;top: 3px;}
+.label-small{width: 80px;}
+.label-media{width: 120px;}
+.label-long{width: 150px;}
+.label-left{text-align: left;}
+.label-justify{text-align:justify;}/**两端对齐**/
+.label-justify::after{content: ':';position: relative;padding-left: 100%;display: inline-block;left: 5px;top: -100%;}
+.label-nocolon:after{content: '';}/**不带冒号**/
+
+/**
+ * 提示
+ */
+.tips{font-size: 14px;display: inline-block;color: #bbb;}
+.tips-error{color: #EE4000;}
+.tips-error:before{content: '';position: relative;width: 19px;height: 19px;background: url(icons/error.png) no-repeat;display: inline-block;background-size: 19px 19px;top: 4px; }
+.tips-success{color: #5CB85C;}
+.tips-success:before{content: '';position: relative;width: 19px;height: 19px;background: url(icons/success.png) no-repeat;display: inline-block;background-size: 15px 14px;top: 7px;left: 2px;}
+
+/**
+ * 文本框样式
+ */
 input{outline: none;}
+input::-ms-clear { display: none;}input::-ms-reveal { display: none;}
+input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {-webkit-appearance: none;}
+input[type="number"] {-moz-appearance: textfield;}
+.input{height: 36px;width: 200px;border-radius: 2px;border: 1px solid #bbb;padding: 0 5px;box-sizing: border-box;font-size: 14px;}
+.input:focus,.input:hover{border: 1px solid #3896f8;}
+.input-active{border: 1px solid #3896f8!important;}
+.input-error{border:1px solid #EE4000!important;}
+.input-disable{background-color: #efefef;color: #999;cursor: not-allowed;border: 1px solid #ddd!important;}
+.div-input{height: 36px;width:250px;display: inline-block;box-sizing: border-box;border:1px solid #bbb;border-radius: 3px;position: relative;}/**输入框样式控制**/
+.div-input:hover{border: 1px solid #3896f8;}
+.div-input .input{border: none;height: 100%;width: 100%;padding: 0 20% 0 5px;border-radius: 3px;}
+.div-input:after{content: '';position: absolute;height: 80%;width: 1px;border-left: 1px solid #bbb;top: 10%;right: 16%;}
+.input-user{background: url(icons/user.png) no-repeat;background-size: 18px 18px;background-position: 95% center;padding: 0 4% 0 5px;}
+.input-password{background: url(icons/password.png) no-repeat;background-size: 18px 18px;background-position: 95% center;padding: 0 4% 0 5px;}
+.input-email{background: url(icons/email.png) no-repeat;background-size: 24px 24px;background-position: 96% center;padding: 0 4% 0 5px;}
+.input-search{background: url(icons/search.png) no-repeat;background-size: 18px 18px;background-position: 95% center;padding: 0 4% 0 5px;}
+.input-num{background: url(icons/num.png) no-repeat;background-size: 24px 24px;background-position: 96% center;padding: 0 4% 0 5px;}
 
-/** 列表样式控制 **/
-.list{width: 100%;color: #666;text-align: center;font-size: 14px;border-collapse: collapse;margin-top: 30px;}
-.list thead{font-size: 16px;background-color: #F5F9FD;}
-.list thead th,.list thead td,.list thead tr{height: 90px; }
-.list tbody tr{height: 80px;}
-.list tbody tr:nth-child(even){background-color: #F5F9FD;}
-.list tbody tr:hover{background-color: #eee;}
+/**
+ * 文本域
+ */
+ textarea{outline: none;}
+.textarea{width: 350px;height: 60px;border-radius: 5px;border: 1px solid #bbb;box-sizing: border-box;padding: 10px;min-width: 100px;min-height: 50px;font-size: 14px;color: #999;}
+.textarea:focus,.textarea:hover{border: 1px solid #3896f8;}
+.textarea-active{border: 1px solid #3896f8!important;}
+.textarea-error{border:1px solid #EE4000!important;}
+.textarea-disable{border: 1px solid #ddd!important;background-color: #efefef;color: #bbb!important;cursor: not-allowed;}
+.textarea-noresize{resize:none;}
 
-/** 表单样式控制 **/
-.control_input{width: 100%;min-height: 30px;float: left;font-size: 14px;margin-bottom: 20px;}
-.control_input>label{width: 120px;text-align: right;letter-spacing: 5px;float: left;color: #738299;height: 30px;line-height: 30px;}
-.control_input>.require:before{content: '*';color: rgb(255,0,0);position: relative;top: 2px;}
-.control_input>label:after{content: ':';position: relative;margin-right: 10px;}
-.control_input>div{float: left;position: relative;}
-.input{width: 150px;height: 28px;border: 1px solid #bbb;border-radius: 2px;padding: 0 10px;}
-.input_underline{width: 150px;height: 28px;border: none;border-bottom: 1px solid #ddd;}
-.control_input .tips{color: rgba(0,0,0,0.2);}
-.control_input .error{color: rgba(255,0,0,1);margin-left:10px;}
-.control_input .success{color: #32CD32;margin-left:10px;}
+/**
+ * 表格
+ */
+table{margin: 0;padding: 0;clear: both;}
+.table{width: 100%;text-align: center;}
+.thead{font-size: 16px;color: #555;background-color: #F5F9FD;}
+.thead th{font-weight: normal;height: 50px;}
+.tbody{color: #666;font-size: 14px;}
+.tbody tr:nth-child(2n){background-color: #F5F9FD;}
+.tbody td{height: 45px;}
+.tbody tr:hover{background-color:#efefef; }
+.tbody-null{background: url(icons/empty.png) no-repeat; background-position: center;}
 
-.control_button{width: 100%;text-align: center;float: left;}
-.btn{cursor: pointer;outline: none;border: none;transition: filter 0.3s;letter-spacing: 3px;}
-.btn:hover{filter: opacity(0.8);}
-.btn_default{background-color: #0075ff;color: #fff;}
-.btn_media{width: 150px;height: 30px;}
-
-.control_footer{font-size: 14px;color: #bbb;margin-top: 10px;text-align: center;float: left;width: 100%;}
-.a{color: #0075ff;text-decoration: none;cursor: pointer;}
-.a:hover{text-decoration: underline;}
+/**
+ * div布局相关
+ * 表单布局
+ */
+.form-control{margin-bottom: 30px;}
+.form-control .label{float: left;margin-right: 40px;}
+.form-items{float: left;max-width: 80%;width: 100%;}
