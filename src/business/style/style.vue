@@ -76,6 +76,30 @@
 			</div>
 		</div>
 		<div class="form-control clearfix">
+			<label class="label label-medium label-require">radio</label>
+			<div class="form-items">
+				<label class="rd">普通状态</label>
+				<label class="rd rd-checked">选中状态</label>
+				<label class="rd rd-disable">禁用未选中</label>
+				<label class="rd rd-checked-disable">禁用选中</label>
+			</div>
+		</div>
+		<div class="form-control clearfix">
+			<label class="label label-medium label-require">checkbox</label>
+			<div class="form-items">
+				<label class="ck">普通状态</label>
+				<label class="ck ck-checked">选中状态</label>
+				<label class="ck ck-disable">禁用未选中</label>
+				<label class="ck ck-checked-disable">禁用选中</label>
+			</div>
+		</div>
+		<div class="form-control clearfix">
+			<label class="label label-medium label-require">shift</label>
+			<label class="shift" :class='{"shift-checked": switchFlag}' @click="switchBtn"></label>
+			<label class="shift shift-checked"></label>
+			<label class="shift shift-disable"></label>
+		</div>
+		<div class="form-control clearfix">
 			<label class="label label-medium label-require">表格</label>
 			<div class="form-items">
 				<table class="table" cellpadding="0" cellspacing="0" @click='showClassName'>
@@ -113,7 +137,8 @@
 						{name:'jjj',age:'55',gender:'male'}
 					]
 				},
-				cname: ''
+				cname: '',
+				switchFlag: false
 			}
 		},
 		methods: {
@@ -122,10 +147,16 @@
 				let target = e.target
 				this.cname = target.className
 				console.log(target)
+			},
+			switchBtn: function(){
+				this.switchFlag = !this.switchFlag
 			}
 		}
 	}
 </script>
 <style scoped>
 .div-inputs>input,.div-inputs>div{margin-bottom:20px;}
+.shift{height:30px;width:80px;}
+.shift:before{height:28px;width:28px;}
+.shift-checked:before{left:51px;}
 </style>

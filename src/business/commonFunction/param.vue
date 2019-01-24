@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<button @click='change'>改变当前地址</button>
-		<button @click="getUrlParam">获取参数</button>
+		<button @click='change' class="btn btn-small btn-default">改变当前地址</button>
+		<button @click="getUrlParam" class="btn btn-small btn-default">获取参数</button>
 	</div>
 </template>
 

@@ -1,9 +1,9 @@
 <template>
 	<div>
-		<button @click="getDate1">获取当前时间，精确到秒</button>
-		<button @click="getDate2">获取一个月前时间，精确到天</button>
-		<button @click="getDate3">获取一年后时间，精确到小时</button>
-		<button @click="getDate4">获取两天后时间，精确到星期</button>
+		<button @click="getDate1" class="btn btn-default">获取当前时间，精确到秒</button>
+		<button @click="getDate2" class="btn btn-default">获取一个月前时间，精确到天</button>
+		<button @click="getDate3" class="btn btn-default">获取一年后时间，精确到小时</button>
+		<button @click="getDate4" class="btn btn-default">获取两天后时间，精确到星期</button>
 		<p>{{txt}}</p>
 	</div>
 </template>

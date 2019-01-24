@@ -1,24 +1,24 @@
 <template>
 	<div>
-		<button @click='show_loading'>loading</button>
-		<button @click='show_alert'>alert</button>
-		<button @click='show_confirm'>confirm</button>
-		<button @click='show_tips'>tips</button>
-		<button @click='show_prompt'>prompt</button>
-		<button @click='show_ref'>ref</button>
-		<my-dialog ref="Layer"></my-dialog>
-		<div>
-			<button @click='show_loading2'>loading2</button>
-			<button @click='show_alert2'>alert2</button>
-			<button @click='show_confirm2'>confirm2</button>
-			<button @click='show_tips2'>tips2</button>
-			<button @click='show_success'>success</button>
-			<button @click='show_error'>error</button>
-			<button @click='show_prompt2'>prompt2</button>
-			<button @click='show_ref2'>ref2</button>
-			<button @click='open'>open</button>
-			<button @click='progress'>progress</button>
-			<button @click='window'>window</button>
+		<button @click='show_loading' class="btn btn-small btn-default">loading</button>
+		<button @click='show_alert' class="btn btn-small btn-default">alert</button>
+		<button @click='show_confirm' class="btn btn-small btn-default">confirm</button>
+		<button @click='show_tips' class="btn btn-small btn-default">tips</button>
+		<button @click='show_prompt' class="btn btn-small btn-default">prompt</button>
+		<button @click='show_ref' class="btn btn-small btn-default">ref</button>
+		<my-dialog ref="Layer" class="btn btn-small btn-default"></my-dialog>
+		<div style="margin-top:30px;">
+			<button @click='show_loading2' class="btn btn-small btn-default">loading2</button>
+			<button @click='show_alert2' class="btn btn-small btn-default">alert2</button>
+			<button @click='show_confirm2' class="btn btn-small btn-default">confirm2</button>
+			<button @click='show_tips2' class="btn btn-small btn-default">tips2</button>
+			<button @click='show_success' class="btn btn-small btn-default">success</button>
+			<button @click='show_error' class="btn btn-small btn-default">error</button>
+			<button @click='show_prompt2' class="btn btn-small btn-default">prompt2</button>
+			<button @click='show_ref2' class="btn btn-small btn-default">ref2</button>
+			<button @click='open' class="btn btn-small btn-default">open</button>
+			<button @click='progress' class="btn btn-small btn-default">progress</button>
+			<button @click='window' class="btn btn-small btn-default">window</button>
 		</div>
 	</div>
 </template>

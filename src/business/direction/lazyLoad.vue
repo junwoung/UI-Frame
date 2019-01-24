@@ -72,7 +72,7 @@
 		mounted(){
 			this.init()	
 			let show_backTop = false;
-			window.addEventListener('scroll',()=>{
+			function scroll(){
 				let div_imgs = document.querySelector('.div_imgs')
 				let backTop = document.querySelector('.div_backTop')
 				let rect = div_imgs.getBoundingClientRect()
@@ -89,7 +89,15 @@
 				if(rect.bottom < windowHeight){
 					this.getData()
 				}
-			})	
+			}
+			window.addEventListener('scroll',scroll)
+			window.onhashchange = function(a){
+				let hash = a.oldURL.split('#/')[1];
+				if(hash === 'lazyLoad'){
+					window.onhashchange = null;
+					window.removeEventListener('scroll',scroll);
+				}
+			}
 		}
 	}
 </script>
