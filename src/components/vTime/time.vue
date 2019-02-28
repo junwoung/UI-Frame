@@ -112,7 +112,6 @@ export default{
 			 for(let key in this.timeObj){
 				this.$data[key] = this.timeObj[key];
 			}
-			if(!this.timeObj.selected){this.timeObj.selected = ''}
 			if(this.min){
 				if(typeof this.min == "string") this.min = (new Date(this.min)).valueOf();
 			}
@@ -136,9 +135,17 @@ export default{
 						break;
 					default:
 						date = new Date(this.selected);
-				}				
+				}
+				// if(this.selected == 'today'){
+				// 	this.now_date();
+				// }
+				// else{
+				// 	date = new Date(this.selected);
+				// }
+				
 			}
 			if(this.selected === undefined){
+				console.log(1111);
 				date = new Date();
 			}
 			let year = date.getFullYear();
@@ -349,7 +356,7 @@ export default{
 			let day = date.getDate();
 			day = day > 9 ? day : ('0'+day);
 			let date_str = year + '-' + month + '-' + day;
-			// if(this.min && (new Date(date_str)).valueOf() < this.min || this.max && (new Date(date_str)).valueOf() > this.max)return;
+			if(this.min && (new Date(date_str)).valueOf() < this.min || this.max && (new Date(date_str)).valueOf() > this.max)return;
 			this.s_year = year;
 			this.s_month = month;
 			this.s_day = day;
@@ -427,24 +434,21 @@ export default{
 		'timeObj.min': function(){
 			this.init();
 		},
-		'timeObj.max': function(){
-			this.init()
-		},
-		'selected': function(val){
-			this.timeObj.selected = val;
+		'selected': function(val,oval){
+			this.timeObj.selected = val;			
 		}
 	}
 }
 </script>
 <style scoped>
-.j_div_time{font-size:14px;font-family:'微软雅黑';position:relative;user-select:none;}
+.j_div_time{font-size:14px;font-family:'微软雅黑';position:relative;user-select:none;height:100%;min-height:28px;}
 .j_div_time_mask{position:fixed;top:0;left:0;background-color:#fff;opacity:0;width:100%;height:100%;z-index:1000;}
 
-.j_ip_time{width:95%;outline:none;height: 28px;padding:0;border:1px solid #bbb;padding-left:5%;color:#555;}
+.j_ip_time{width:95%;outline:none;height: 28px;padding:0;border:1px solid #bbb;padding-left:5%;color:#555;height:100%;border-radius: 3px;}
 .j_ip_hide{width:0;height:0;border:none;opacity:0;margin:0;padding:0;clear:both;float:left;position:absolute;top:0;left:0;}
-.j_div_time_select{width:270px!important;position:absolute;height:auto!important;top:32px!important;box-shadow: 0 0 5px #ccc;background-color:#fff;z-index:20000;}
+.j_div_time_select{width:270px!important;position:absolute;height:auto!important;top:40px!important;box-shadow: 0 0 5px #ccc;background-color:#fff;z-index:20000;}
 .j_div_time_select_top{width:270px!important;position:absolute;height:auto!important;box-shadow: 0 0 5px #ccc;background-color:#fff;z-index:20000;top:-325px!important;}
-.j_div_time_select_hide{width:0;height:0;overflow:hidden;top:50px;transition:top 0.3s;}
+.j_div_time_select_hide{width:0;height:0;overflow:hidden;top:50px;transition:top 0.3s;position:absolute;}
 .j_div_time_head{width:100%;background-color:#5896f8;height:40px;color:#fff;text-align:center;}
 .j_div_time_head span{display:inline-block;height:30px;line-height:30px;margin-top:5px;cursor:pointer;}
 .j_div_time_head .sp_left{float:left;margin-left:10px;}

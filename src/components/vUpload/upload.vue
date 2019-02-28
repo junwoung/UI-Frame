@@ -9,7 +9,8 @@
 					<i class="j_i_close" @click="deleteItem(index)"></i>
 				</div>
 			</div>
-			<div class="j_div_add" @click="select"></div>
+			<div class="j_div_add" @click="select" v-if='!button'></div>
+			<button v-if='button' class="j_upload_btn" @click="select">{{button}}</button>
 		</div>
 	</div>
 </template>
@@ -27,7 +28,8 @@ import Vue from 'vue';
 				width: null,//图片的宽度
 				height: null,//图片的高度
 				strict: false,//图片长宽是否严格限制在标注尺寸
-				icon: require('./img/file.png')
+				icon: require('./img/file.png'),
+				button: ''
 			}
 		},
 		props: {
@@ -47,18 +49,18 @@ import Vue from 'vue';
 				let _this = this;
 				let file = event.target.files[0];
 				if(this.type && file.type.indexOf(this.type) === -1){
-					this.Layer.alert('上传文件类型错误，应该上传 '+this.type+' 类型');
+					this.$dialog.alert('上传文件类型错误，应该上传 '+this.type+' 类型');
 					return;
 				}
 				if(this.format && this.format.length){
 					let file_type = file.name.split('.').pop(1).toLowerCase();
 					if(this.format.indexOf(file_type) === -1){
-						this.Layer.alert('上传文件后缀与指定后缀类型不符( '+this.format.join(',')+' )');
+						this.$dialog.alert('上传文件后缀与指定后缀类型不符( '+this.format.join(',')+' )');
 						return;
 					}
 				}
 				if(this.size && file.size > this.size * 1024 * 1024){
-					this.Layer.alert('文件超过'+this.size+'M限制');
+					this.$dialog.alert('文件超过'+this.size+'M限制');
 					return;
 				}
 				let reader = new FileReader();
@@ -72,13 +74,13 @@ import Vue from 'vue';
 							let h = image.height;
 							if(_this.strict){
 								if(_this.width && _this.height && (w != _this.width || h != _this.height)){
-									_this.Layer.alert('图片的宽高不符合要求，宽必须为：'+_this.width+'，高必须为：'+_this.height);
+									_this.$dialog.alert('图片的宽高不符合要求，宽必须为：'+_this.width+'，高必须为：'+_this.height);
 									return;
 								}
 							}
 							else{
 								if(_this.width && _this.height && (w > _this.width || h > _this.height)){
-									_this.Layer.alert('图片的宽高不符合要求，宽不能大于：'+_this.width+'，高不能大于：'+_this.height);
+									_this.$dialog.alert('图片的宽高不符合要求，宽不能大于：'+_this.width+'，高不能大于：'+_this.height);
 									return;
 								}
 							}
@@ -103,16 +105,16 @@ import Vue from 'vue';
 					else{
 						let file_tail = file.type.split('.').pop();
 						switch(file_tail){
-							case 'sheet': _this.icon = require('./img/excel.png');break;
-							case 'document': _this.icon = require('./img/word.png');break;
-							case 'presentation': _this.icon = require('./img/ppt.png');break;
+							case 'sheet': _this.icon = require('./img/file.png');break;
+							case 'document': _this.icon = require('./img/file.png');break;
+							case 'presentation': _this.icon = require('./img/file.png');break;
 							default: _this.icon = require('./img/file.png');
 						}
-						if(file.type.indexOf('pdf') !== -1)_this.icon = require('./img/pdf.png');
-						if(file.type.indexOf('video') !== -1)_this.icon = require('./img/video.png');
-						if(file.type === 'text/plain')_this.icon = require('./img/txt.png');
-						if(file.type === 'text/html')_this.icon = require('./img/html.png');
-						if(!file.type && file.name.split('.').pop() == 'rar')_this.icon = require('./img/rar.png');
+						if(file.type.indexOf('pdf') !== -1)_this.icon = require('./img/file.png');
+						if(file.type.indexOf('video') !== -1)_this.icon = require('./img/file.png');
+						if(file.type === 'text/plain')_this.icon = require('./img/file.png');
+						if(file.type === 'text/html')_this.icon = require('./img/file.png');
+						if(!file.type && file.name.split('.').pop() == 'rar')_this.icon = require('./img/file.png');
 						if(_this.multiple){
 							_this.imgs.push({
 								name: file.name,
@@ -172,4 +174,5 @@ import Vue from 'vue';
 	.j_img_item{width:80px;height:80px;background-color:#ddd;}
 	.j_div_item span{color:#bbb;font-size:12px;float:left;display:inline-block;width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
 	.j_i_close{background:url(img/close.png) no-repeat;display:inline-block;width:16px;height:16px;position:absolute;top:-5px;right:-5px;cursor:pointer;}
+	.j_upload_btn{cursor: pointer;outline: none;border: none;word-spacing: 3px;border-radius: 3px;transition: filter 0.3s;font-size: 14px;display: inline-block;text-align: center;background-color: rgba(56, 150, 248, 1);color: #fff;width: 80px;height: 28px;}
 </style>

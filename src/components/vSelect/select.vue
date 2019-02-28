@@ -1,7 +1,7 @@
 <template>
-	<div v-if='data && data.length || type == "switch"' style="float:left;width:100%;height:100%;">
+	<div v-if='data && data.length || type == "switch"' style="width:100%;height:100%;">
 		<!-- 标准下拉框 query :true 带查询 :false 不带查询 -->
-		<div v-if='type == "select"' style="float:left;width:100%;height:100%;">
+		<div v-if='type == "select"' style="width:100%;height:100%;">
 			<div class="clearfix j_div_select">
 				<input type="text" @blur="hide_options" @focus="show_options" style="width:0;height:0;outline:none;opacity:0;border:none;padding:0;marging:0;">
 				<span class="j_sp_select" :class="{'j_sp_select_dis':disable}" @click="get_focus">
@@ -140,6 +140,7 @@
 					/* 用于query 保存传入的初始值 */
 					this.data_select = JSON.parse(JSON.stringify(this.data));
 					if(this.type == 'checkbox'){
+						if(!this.selected)this.selected = [];
 						/* 用于checkbox 当disable为part时，用于确定已选的参数不可被取消 */
 						this.data_select = JSON.parse(JSON.stringify(this.selected));
 					}
@@ -488,11 +489,11 @@
 	*{font-size:14px;font-family:'微软雅黑';}
 	.hide{display:none;}
 
-	.j_div_select{position:relative;max-width:250px;min-width:150px;padding:0;color:#333;width:100%;height:30px;}
-	.j_div_select .j_sp_select{width:90%;height:98%;line-height:28px;border:1px solid #dddddd;display:inline-block;border-radius:2px;cursor:pointer;position:relative;text-align:left;padding-left:4%;float:left;}
+	.j_div_select{position:relative;min-width:150px;padding:0;color:#333;width:100%;height:36px;}
+	.j_div_select .j_sp_select{width:100%;height:100%;line-height:36px;border:1px solid #bbb;display:inline-block;border-radius:2px;cursor:pointer;position:relative;text-align:left;padding-left:4%;float:left;box-sizing:border-box;}
 	.j_div_select .j_sp_select_dis{background-color:#f5f5f5!important;color:#bbb;cursor:not-allowed;}
 	.j_div_select .j_i_dropdown{background:url(./img/select-triangle_down.png) no-repeat;display:inline-block;width:10px;height:6px;position:absolute;right:3%;top:45%;}
-	.j_div_select .j_ul_options{position:absolute;padding:0;text-align:left;left:0;width:94%;background-color:#fff;z-index:100;border:1px solid #dddddd;margin:0;top:30px;overflow:auto;max-height:150px;}
+	.j_div_select .j_ul_options{position:absolute;padding:0;text-align:left;left:0;width:100%;background-color:#fff;z-index:100;border:1px solid #dddddd;margin:0;top:35px;overflow:auto;max-height:150px;box-sizing:border-box;}
 	.j_div_select .j_ul_options li{list-style:none;margin:0;width:100%;height:25px;line-height:25px;cursor:pointer;}
 	.j_div_select .j_ul_options li:hover{background-color:#F5F5F5;}
 	.j_div_select .j_li_selected{background-color:#dddddd!important;color:#fff;}
