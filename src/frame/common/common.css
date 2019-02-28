@@ -1,3 +1,6 @@
+@import '../frame/component/basic/css/reset.css';
+/*这里放置公共模块的公共代码*/
+
 /** 通用样式清除 **/
 html{padding:0;margin:0;height:100%;}
 body{padding:0;margin:0;height:100%;}
@@ -105,7 +108,7 @@ body{padding:0;margin:0;height:100%;}
 .label:after{
 	content: ':';
 	position: absolute;
-	right: -10px;
+	right: -8px;
 	top:0;
 }
 .label-require{}/**带必填星号**/
@@ -276,7 +279,7 @@ input[type="number"] {-moz-appearance: textfield;}
  * 表格
  */
 table{margin: 0;padding: 0;clear: both;}
-.table{width: 100%;text-align: center;}
+.table{width: 100%;text-align: center;margin-top: 30px;}
 .thead{
 	font-size: 16px;
 	color: #555;
@@ -285,11 +288,15 @@ table{margin: 0;padding: 0;clear: both;}
 .thead th{font-weight: normal;height: 50px;}
 .tbody{color: #666;font-size: 14px;}
 .tbody tr:nth-child(2n){background-color: #F5F9FD;}
-.tbody td{height: 45px;}
+.tbody td{height: 60px;}
 .tbody tr:hover{background-color:#efefef; }
 .tbody-null{
 	background: url(icons/empty.png) no-repeat;
 	background-position: center;
+	height: 300px;
+}
+.tbody-null:hover{
+	background-color: transparent!important;
 }
 
 /**
@@ -298,7 +305,7 @@ table{margin: 0;padding: 0;clear: both;}
  */
 .form-control{margin-bottom: 30px;}
 .form-control .label{float: left;margin-right: 40px;}
-.form-items{float: left;max-width: 80%;width: 100%;}
+.form-items{float: left;}
 
 /**
  * 选择样式
@@ -360,18 +367,19 @@ table{margin: 0;padding: 0;clear: both;}
 
 .shift{
 	display: inline-block;
-	width: 100px;
-	height: 36px;
+	width: 80px;
+	height: 30px;
 	box-sizing: border-box;
-	border-radius: 36px;
+	border-radius: 30px;
 	background-color: #ddd;
 	cursor: pointer;
 	transition: background-color .2s;
+	text-align: left;
 }
 .shift:before{
 	content: '';
-	width: 34px;
-	height: 34px;
+	width: 28px;
+	height: 28px;
 	display: inline-block;
 	background-color: #fff;
 	border-radius: 50%;
@@ -381,6 +389,38 @@ table{margin: 0;padding: 0;clear: both;}
 	transition: left .2s;
 }
 .shift-checked{background-color: #3896f8;}
-.shift-checked:before{left: 65px;}
+.shift-checked:before{left: 51px;}
 .shift-disable{cursor: not-allowed;}
 
+/** 文本长度控制 **/
+.width-control{display: inline-block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+
+/**  遮罩  **/
+.div-mask{
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0,0,0,0.4);
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 16px;
+	user-select: none;
+}
+.div-mask .mask-content{
+	background-color: #fff;
+	box-shadow: 0 0 15px 1px #ddd;
+	transform: translate(0,-120px);
+	border-radius: 3px;
+}
+.div-mask .mask-content>div{
+	padding: 10px 30px;
+}
+
+.layout td{height:30px;padding: 5px;max-width: 600px;word-break: break-all;word-wrap:break-word;}
+.table .shift{height: 26px;width: 60px;}
+.table .shift:before{width: 24px;height: 24px;}
+.table .shift-checked:before{left: 35px;}
